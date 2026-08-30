@@ -231,8 +231,13 @@
     "h4": "buy",
     "h5": "owned",
     "h6": "owned",
-    "h7": "reviewing"
+    "h7": "reviewing",
+    "e1": "deferred",
+    "e2": "buy",
+    "e3": "owned",
+    "e4": "owned",
+    "e5": "rejected"
   },
   "comments": {},
-  "updated": "2026-08-30T19:01:29.435Z"
+  "updated": "2026-08-30T19:01:54.140Z"
 }
