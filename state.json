@@ -224,8 +224,15 @@
     "fa27": "buy",
     "fa28": "buy",
     "fa29": "reviewing",
-    "fa30": "buy"
+    "fa30": "buy",
+    "h1": "owned",
+    "h2": "owned",
+    "h3": "buy",
+    "h4": "buy",
+    "h5": "owned",
+    "h6": "owned",
+    "h7": "reviewing"
   },
   "comments": {},
-  "updated": "2026-08-30T19:00:54.098Z"
+  "updated": "2026-08-30T19:01:29.435Z"
 }
