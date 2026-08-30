@@ -236,8 +236,17 @@
     "e2": "buy",
     "e3": "owned",
     "e4": "owned",
-    "e5": "rejected"
+    "e5": "rejected",
+    "ki1": "reviewing",
+    "ki2": "reviewing",
+    "ki3": "reviewing",
+    "ki4": "owned",
+    "ki5": "reviewing",
+    "ki6": "owned",
+    "ki7": "owned",
+    "ki8": "owned",
+    "ki9": "rejected"
   },
   "comments": {},
-  "updated": "2026-08-30T19:01:56.088Z"
+  "updated": "2026-08-30T19:06:45.130Z"
 }
