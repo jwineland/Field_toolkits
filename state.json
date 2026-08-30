@@ -186,8 +186,12 @@
     "ca47": "owned",
     "ca48": "owned",
     "ca49": "owned",
-    "ca50": "owned"
+    "ca50": "owned",
+    "da1": "owned",
+    "da2": "owned",
+    "da3": "buy",
+    "da4": "owned"
   },
   "comments": {},
-  "updated": "2026-08-30T18:58:06.125Z"
+  "updated": "2026-08-30T18:58:34.696Z"
 }
