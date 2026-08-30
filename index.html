@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DC Field Toolkit Checklist</title>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --border: #2e3250;
+    --border2: #3d4270;
+    --text: #e8eaf6;
+    --text2: #9096b8;
+    --text3: #5a6080;
+    --accent: #5c7cfa;
+    --accent-bg: #1a2060;
+    --green: #40c057;
+    --green-bg: #0d2b14;
+    --yellow: #fab005;
+    --yellow-bg: #2b2000;
+    --red: #f03e3e;
+    --red-bg: #2b0a0a;
+    --purple: #ae3ec9;
+    --purple-bg: #250d2b;
+    --radius: 8px;
+    --radius-sm: 5px;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; min-height: 100vh; }
+  .app { max-width: 900px; margin: 0 auto; padding: 16px; }
+  header { padding: 20px 0 16px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+  h1 { font-size: 20px; font-weight: 600; color: var(--text); }
+  .subtitle { font-size: 12px; color: var(--text3); margin-top: 4px; }
+  .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; }
+  .stat-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
+  .stat-value { font-size: 22px; font-weight: 600; }
+  .stat-value.green { color: var(--green); }
+  .stat-value.blue { color: var(--accent); }
+  .stat-value.muted { color: var(--text2); }
+  .controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
+  .search input { width: 100%; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius); padding: 9px 12px; color: var(--text); font-size: 14px; outline: none; }
+  .search input:focus { border-color: var(--accent); }
+  .search input::placeholder { color: var(--text3); }
+  .filters { display: flex; flex-wrap: wrap; gap: 6px; }
+  .fb { font-size: 12px; padding: 5px 12px; border-radius: 20px; border: 1px solid var(--border2); background: transparent; color: var(--text2); cursor: pointer; transition: all 0.15s; }
+  .fb:hover { border-color: var(--accent); color: var(--text); }
+  .fb.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
+  .sec-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .stab { font-size: 12px; padding: 6px 11px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--text2); cursor: pointer; transition: all 0.15s; text-align: left; }
+  .stab:hover { border-color: var(--border2); color: var(--text); }
+  .stab.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
+  .stab .cnt { font-size: 10px; opacity: 0.7; margin-left: 4px; }
+  .sec-header { font-size: 15px; font-weight: 600; color: var(--text); padding: 0 0 12px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+  .subsec-head { font-size: 11px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; padding: 12px 0 6px; border-top: 1px solid var(--border); margin-top: 4px; }
+  .subsec-head:first-of-type { border-top: none; margin-top: 0; }
+  .item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
+  .item:last-child { border-bottom: none; }
+  .item-left { flex: 1; min-width: 0; }
+  .item-name { font-size: 13px; color: var(--text); line-height: 1.45; }
+  .item-note { font-size: 11px; color: var(--text2); margin-top: 3px; }
+  .item-tier { font-size: 10px; color: var(--text3); margin-top: 2px; }
+  .item-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 500; }
+  .b-owned { background: var(--green-bg); color: var(--green); }
+  .b-buy { background: var(--accent-bg); color: var(--accent); }
+  .b-deferred { background: var(--yellow-bg); color: var(--yellow); }
+  .b-rejected { background: var(--red-bg); color: var(--red); }
+  .b-reviewing { background: var(--purple-bg); color: var(--purple); }
+  .item-right { flex-shrink: 0; display: flex; flex-direction: column; align-items: flex-end; gap: 6px; }
+  select.ss { font-size: 12px; padding: 4px 6px; border-radius: var(--radius-sm); border: 1px solid var(--border2); background: var(--surface2); color: var(--text); cursor: pointer; width: 96px; }
+  select.ss:focus { outline: none; border-color: var(--accent); }
+  .comment-btn { font-size: 11px; color: var(--text3); background: none; border: none; cursor: pointer; padding: 0; }
+  .comment-btn:hover { color: var(--accent); }
+  .comment-box { margin-top: 6px; width: 100%; }
+  .comment-box textarea { width: 100%; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius-sm); color: var(--text); font-size: 12px; padding: 6px 8px; resize: vertical; min-height: 56px; }
+  .comment-box textarea:focus { outline: none; border-color: var(--accent); }
+  .comment-box .save-btn { margin-top: 4px; font-size: 11px; padding: 4px 10px; border-radius: var(--radius-sm); background: var(--accent); color: #fff; border: none; cursor: pointer; }
+  .saved-comment { font-size: 11px; color: var(--text2); background: var(--surface2); border-left: 2px solid var(--accent); padding: 4px 8px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-top: 4px; font-style: italic; }
+  .empty { color: var(--text3); padding: 24px 0; text-align: center; font-size: 13px; }
+  .actions { display: flex; gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
+  .actions button { flex: 1; font-size: 13px; padding: 9px; border-radius: var(--radius); border: 1px solid var(--border2); background: var(--surface); color: var(--text); cursor: pointer; transition: all 0.15s; }
+  .actions button:hover { border-color: var(--accent); color: var(--accent); }
+  .actions button.primary { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .actions button.primary:hover { background: #4a6af0; }
+  .auth-bar { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 14px; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+  .auth-bar input { flex: 1; min-width: 180px; background: var(--surface2); border: 1px solid var(--border2); border-radius: var(--radius-sm); padding: 6px 10px; color: var(--text); font-size: 12px; }
+  .auth-bar input:focus { outline: none; border-color: var(--accent); }
+  .auth-bar input::placeholder { color: var(--text3); }
+  .auth-bar button { font-size: 12px; padding: 6px 14px; border-radius: var(--radius-sm); background: var(--accent); border: none; color: #fff; cursor: pointer; }
+  .auth-status { font-size: 11px; color: var(--text3); }
+  .auth-status.ok { color: var(--green); }
+  .sync-status { font-size: 11px; color: var(--text3); text-align: right; margin-bottom: 8px; min-height: 16px; }
+  .sync-status.err { color: var(--red); }
+  .sync-status.ok { color: var(--green); }
+  @media (max-width: 500px) {
+    .stats { grid-template-columns: repeat(2, 1fr); }
+    .item-right { flex-direction: row; align-items: center; }
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <h1>DC Field Deployment Kit</h1>
+    <div class="subtitle">Rev 16 &nbsp;·&nbsp; jwineland/Field_toolkits &nbsp;·&nbsp; Categorize, comment, export</div>
+  </header>
+
+  <div class="auth-bar">
+    <input type="password" id="pat-input" placeholder="GitHub Personal Access Token (repo scope) — for saving changes">
+    <button onclick="saveAuth()">Connect</button>
+    <span class="auth-status" id="auth-status">Not connected — changes saved locally only</span>
+  </div>
+
+  <div class="stats">
+    <div class="stat"><div class="stat-label">Total items</div><div class="stat-value muted" id="s-tot">0</div></div>
+    <div class="stat"><div class="stat-label">Owned</div><div class="stat-value green" id="s-own">0</div></div>
+    <div class="stat"><div class="stat-label">To buy</div><div class="stat-value blue" id="s-buy">0</div></div>
+    <div class="stat"><div class="stat-label">Unreviewed</div><div class="stat-value muted" id="s-un">0</div></div>
+  </div>
+
+  <div class="controls">
+    <div class="search"><input type="search" id="srch" placeholder="Search all items…"></div>
+    <div class="filters">
+      <button class="fb active" data-f="all">All</button>
+      <button class="fb" data-f="unset">Unreviewed</button>
+      <button class="fb" data-f="owned">Owned</button>
+      <button class="fb" data-f="buy">Buy</button>
+      <button class="fb" data-f="deferred">Deferred</button>
+      <button class="fb" data-f="reviewing">Reviewing</button>
+      <button class="fb" data-f="rejected">Rejected</button>
+    </div>
+  </div>
+
+  <div class="sec-tabs" id="sec-tabs"></div>
+  <div class="sync-status" id="sync-status"></div>
+  <div class="sec-header" id="sec-header"></div>
+  <div id="list"></div>
+
+  <div class="actions">
+    <button onclick="exportCSV()">Export CSV</button>
+    <button class="primary" onclick="syncToGitHub()">Save to GitHub</button>
+  </div>
+</div>
+
+<script>
+const OWNER = 'jwineland';
+const REPO = 'Field_toolkits';
+const DATA_PATH = 'data.json';
+const STATE_PATH = 'state.json';
+const BRANCH = 'main';
+
+let kitData = null;
+let state = {};
+let comments = {};
+let curSec = null;
+let filt = 'all';
+let q = '';
+let pat = '';
+let openComments = {};
+
+const SL = ['unset','owned','buy','deferred','reviewing','rejected'];
+const LB = {unset:'—',owned:'Owned',buy:'Buy',deferred:'Deferred',reviewing:'Reviewing',rejected:'Rejected'};
+
+async function init() {
+  // Load kit data
+  const r = await fetch('data.json?_=' + Date.now());
+  kitData = await r.json();
+
+  // Load saved state from GitHub or localStorage
+  await loadState();
+
+  curSec = kitData.sections[0].id;
+  buildTabs();
+  updateStats();
+  render();
+}
+
+async function loadState() {
+  // Try GitHub first
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${STATE_PATH}?_=${Date.now()}`);
+    if (r.ok) {
+      const saved = await r.json();
+      state = saved.status || {};
+      comments = saved.comments || {};
+      setSyncStatus('Loaded from GitHub', 'ok');
+      return;
+    }
+  } catch(e) {}
+  // Fall back to localStorage
+  const ls = localStorage.getItem('fk_state');
+  if (ls) { const p = JSON.parse(ls); state = p.status||{}; comments = p.comments||{}; }
+  setSyncStatus('Using local storage — connect GitHub to share', '');
+}
+
+function getItemState(id) { return state[id] || 'unset'; }
+
+function saveLocal() {
+  localStorage.setItem('fk_state', JSON.stringify({status: state, comments: comments}));
+}
+
+async function syncToGitHub() {
+  if (!pat) { alert('Enter a GitHub PAT first to save to GitHub.'); return; }
+  setSyncStatus('Saving...', '');
+  try {
+    // Get current SHA of state.json if it exists
+    let sha = null;
+    try {
+      const r = await ghApi('GET', `contents/${STATE_PATH}`);
+      if (r.sha) sha = r.sha;
+    } catch(e) {}
+
+    const content = JSON.stringify({status: state, comments: comments, updated: new Date().toISOString()}, null, 2);
+    const body = { message: 'Update kit state — ' + new Date().toISOString(), content: btoa(unescape(encodeURIComponent(content))), branch: BRANCH };
+    if (sha) body.sha = sha;
+    await ghApi('PUT', `contents/${STATE_PATH}`, body);
+    setSyncStatus('Saved to GitHub ✓', 'ok');
+    saveLocal();
+  } catch(e) {
+    setSyncStatus('Save failed: ' + e.message, 'err');
+  }
+}
+
+async function ghApi(method, path, body) {
+  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/${path}`, {
+    method,
+    headers: { Authorization: 'token ' + pat, 'Content-Type': 'application/json', Accept: 'application/vnd.github.v3+json' },
+    body: body ? JSON.stringify(body) : undefined
+  });
+  if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+  return r.json();
+}
+
+function saveAuth() {
+  pat = document.getElementById('pat-input').value.trim();
+  document.getElementById('pat-input').value = '';
+  if (pat) {
+    document.getElementById('auth-status').textContent = 'Token set — changes will save to GitHub';
+    document.getElementById('auth-status').className = 'auth-status ok';
+  }
+}
+
+function setSyncStatus(msg, cls) {
+  const el = document.getElementById('sync-status');
+  el.textContent = msg;
+  el.className = 'sync-status' + (cls ? ' ' + cls : '');
+}
+
+function updateStats() {
+  let tot=0,own=0,buy=0,un=0;
+  kitData.sections.forEach(s => s.items.forEach(i => {
+    tot++;
+    const st = getItemState(i.id);
+    if (st==='owned') own++;
+    if (st==='buy') buy++;
+    if (st==='unset') un++;
+  }));
+  document.getElementById('s-tot').textContent = tot;
+  document.getElementById('s-own').textContent = own;
+  document.getElementById('s-buy').textContent = buy;
+  document.getElementById('s-un').textContent = un;
+}
+
+function buildTabs() {
+  const el = document.getElementById('sec-tabs');
+  el.innerHTML = '';
+  kitData.sections.forEach(sec => {
+    const total = sec.items.length;
+    const done = sec.items.filter(i => getItemState(i.id) !== 'unset').length;
+    const b = document.createElement('button');
+    b.className = 'stab' + (sec.id === curSec ? ' active' : '');
+    b.innerHTML = sec.name.replace(/^\d+ · /, '') + `<span class="cnt">${done}/${total}</span>`;
+    b.onclick = () => { curSec = sec.id; buildTabs(); render(); };
+    el.appendChild(b);
+  });
+}
+
+function render() {
+  const sec = kitData.sections.find(s => s.id === curSec);
+  document.getElementById('sec-header').textContent = sec.name;
+  const el = document.getElementById('list');
+  el.innerHTML = '';
+
+  const items = sec.items.filter(i => {
+    const mf = filt === 'all' || getItemState(i.id) === filt;
+    const mq = !q || i.name.toLowerCase().includes(q) || (i.note||'').toLowerCase().includes(q) || (i.tier||'').toLowerCase().includes(q);
+    return mf && mq;
+  });
+
+  if (!items.length) { el.innerHTML = '<div class="empty">No items match.</div>'; return; }
+
+  // Group by subsection if present
+  const hasSubs = items.some(i => i.subsection);
+  if (hasSubs) {
+    const subs = [...new Set(items.map(i => i.subsection).filter(Boolean))];
+    subs.forEach(sub => {
+      const sh = document.createElement('div');
+      sh.className = 'subsec-head'; sh.textContent = sub; el.appendChild(sh);
+      items.filter(i => i.subsection === sub).forEach(i => el.appendChild(makeItem(i)));
+    });
+    items.filter(i => !i.subsection).forEach(i => el.appendChild(makeItem(i)));
+  } else {
+    items.forEach(i => el.appendChild(makeItem(i)));
+  }
+}
+
+function makeItem(i) {
+  const st = getItemState(i.id);
+  const d = document.createElement('div');
+  d.className = 'item';
+  d.id = 'item-' + i.id;
+
+  const left = document.createElement('div');
+  left.className = 'item-left';
+  left.innerHTML = `<div class="item-name">${i.name}</div>${i.note ? `<div class="item-note">${i.note}</div>` : ''}<div class="item-tier">${i.tier||''}</div>`;
+
+  // Badge
+  if (st !== 'unset') {
+    const meta = document.createElement('div');
+    meta.className = 'item-meta';
+    meta.innerHTML = `<span class="badge b-${st}">${LB[st]}</span>`;
+    left.appendChild(meta);
+  }
+
+  // Saved comment display
+  if (comments[i.id]) {
+    const cd = document.createElement('div');
+    cd.className = 'saved-comment';
+    cd.id = 'cdisp-' + i.id;
+    cd.textContent = comments[i.id];
+    left.appendChild(cd);
+  }
+
+  // Comment input (if open)
+  if (openComments[i.id]) {
+    const cb = document.createElement('div');
+    cb.className = 'comment-box';
+    const ta = document.createElement('textarea');
+    ta.placeholder = 'Add a comment or note…';
+    ta.value = comments[i.id] || '';
+    const sb = document.createElement('button');
+    sb.className = 'save-btn';
+    sb.textContent = 'Save comment';
+    sb.onclick = () => {
+      const v = ta.value.trim();
+      if (v) comments[i.id] = v; else delete comments[i.id];
+      openComments[i.id] = false;
+      saveLocal();
+      render();
+    };
+    cb.appendChild(ta); cb.appendChild(sb);
+    left.appendChild(cb);
+  }
+
+  const right = document.createElement('div');
+  right.className = 'item-right';
+
+  const sel = document.createElement('select');
+  sel.className = 'ss';
+  SL.forEach(s => { const o = document.createElement('option'); o.value=s; o.textContent=LB[s]; if(s===st)o.selected=true; sel.appendChild(o); });
+  sel.onchange = e => {
+    state[i.id] = e.target.value;
+    saveLocal();
+    updateStats();
+    buildTabs();
+    if (filt !== 'all') render(); else {
+      // just re-render the item badge in place
+      const existing = document.getElementById('item-' + i.id);
+      if (existing) existing.replaceWith(makeItem(i));
+      updateStats(); buildTabs();
+    }
+  };
+
+  const cbtn = document.createElement('button');
+  cbtn.className = 'comment-btn';
+  cbtn.textContent = comments[i.id] ? '✎ edit note' : '+ note';
+  cbtn.onclick = () => { openComments[i.id] = !openComments[i.id]; render(); };
+
+  right.appendChild(sel);
+  right.appendChild(cbtn);
+  d.appendChild(left);
+  d.appendChild(right);
+  return d;
+}
+
+// Search
+document.getElementById('srch').addEventListener('input', e => {
+  q = e.target.value.toLowerCase();
+  if (q) {
+    // Search across all sections
+    document.getElementById('sec-header').textContent = 'Search results';
+    const el = document.getElementById('list');
+    el.innerHTML = '';
+    kitData.sections.forEach(sec => {
+      const items = sec.items.filter(i => {
+        const mf = filt==='all'||getItemState(i.id)===filt;
+        const mq = i.name.toLowerCase().includes(q)||(i.note||'').toLowerCase().includes(q)||(i.tier||'').toLowerCase().includes(q);
+        return mf&&mq;
+      });
+      if (!items.length) return;
+      const sh = document.createElement('div');
+      sh.style.cssText = 'font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;padding:12px 0 6px;border-top:1px solid var(--border);margin-top:4px';
+      sh.textContent = sec.name; el.appendChild(sh);
+      items.forEach(i => el.appendChild(makeItem(i)));
+    });
+  } else {
+    render();
+  }
+});
+
+// Filters
+document.querySelectorAll('.fb').forEach(b => b.addEventListener('click', () => {
+  filt = b.dataset.f;
+  document.querySelectorAll('.fb').forEach(x => x.classList.remove('active'));
+  b.classList.add('active');
+  if (q) document.getElementById('srch').dispatchEvent(new Event('input')); else render();
+  updateStats();
+}));
+
+function exportCSV() {
+  const rows = ['Section,Subsection,Item,Note,Tier,Status,Comment'];
+  kitData.sections.forEach(s => s.items.forEach(i => {
+    rows.push(`"${s.name}","${i.subsection||''}","${i.name.replace(/"/g,"'")}" ,"${(i.note||'').replace(/"/g,"'")}","${i.tier||''}","${LB[getItemState(i.id)]}","${(comments[i.id]||'').replace(/"/g,"'")}"`);
+  }));
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([rows.join('\n')], {type:'text/csv'}));
+  a.download = 'field-kit.csv';
+  a.click();
+}
+
+init();
+</script>
+</body>
+</html>
