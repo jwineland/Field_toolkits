@@ -245,8 +245,16 @@
     "ki6": "owned",
     "ki7": "owned",
     "ki8": "owned",
-    "ki9": "rejected"
+    "ki9": "rejected",
+    "cpu1": "owned",
+    "cpu2": "owned",
+    "cpu3": "owned",
+    "cpu4": "buy",
+    "cpu5": "owned",
+    "cpu6": "buy",
+    "cpu7": "buy",
+    "cpu8": "reviewing"
   },
   "comments": {},
-  "updated": "2026-08-30T19:06:45.130Z"
+  "updated": "2026-08-30T19:07:27.467Z"
 }
