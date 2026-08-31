@@ -336,8 +336,25 @@
     "f28": "buy",
     "f29": "buy",
     "f30": "reviewing",
-    "f31": "reviewing"
+    "f31": "reviewing",
+    "pb1": "buy",
+    "pb3": "buy",
+    "pb2": "buy",
+    "pb4": "deferred",
+    "pb5": "deferred",
+    "pb6": "buy",
+    "pb7": "buy",
+    "pb8": "buy",
+    "pb9": "buy",
+    "pb10": "buy",
+    "pb11": "buy",
+    "pb12": "buy",
+    "pb13": "buy",
+    "pb14": "buy",
+    "pb15": "buy",
+    "pb16": "buy",
+    "pb17": "buy"
   },
   "comments": {},
-  "updated": "2026-08-31T04:19:32.030Z"
+  "updated": "2026-08-31T04:21:48.269Z"
 }
