@@ -1,8 +1,8 @@
 {
   "meta": {
     "title": "DC Field Deployment Kit",
-    "revision": "16",
-    "updated": "2026-08-30"
+    "revision": "17",
+    "updated": "2026-08-31"
   },
   "sections": [
     {
@@ -476,8 +476,25 @@
       ]
     },
     {
+      "id": "s16",
+      "name": "16 · Material Transport",
+      "items": [
+        {"id":"mt1","name":"RocknRoller R6G Multi-Cart (Ground Glider)","tier":"Core","note":"Folded w/o wheels: 28\"×12.5\"×9.5\" — $240 rocknrollercart.com"},
+        {"id":"mt2","name":"R6G wheel removal modification","tier":"Core","note":"Modify rear axle to make wheels removable for airline checking"},
+        {"id":"mt3","name":"RocknRoller RSA-WAG6 Wagon Bag","tier":"Core","note":"Deployed open-top bin on cart uprights — $55, check B&H for stock"},
+        {"id":"mt4","name":"RocknRoller deck / multimedia shelf accessory","tier":"Core","note":"Platform surface for cart — select model compatible with R6G"},
+        {"id":"mt5","name":"MIER 90L Tarpaulin Duffel Backpack","tier":"Core","note":"Travel case for R6G frame + wheels + WAG6 — ASIN B0DB25MV2S ~$75. D-zip main opening + end shoe compartment = bin mouth on cart"},
+        {"id":"mt6","name":"½\" closed-cell EVA foam sheet (12\"×24\")","tier":"Core","note":"Padding for axle stubs, caster mounts, and frame corners inside travel bag"},
+        {"id":"mt7","name":"Velcro cinch straps ×2–4 (heavy duty)","tier":"Core","note":"Cinch frame + wheels + deck tightly together before bagging"},
+        {"id":"mt8","name":"Foam pipe insulation — axle stub covers","tier":"Core","note":"Protects bag interior from exposed axle hardware after wheel removal"},
+        {"id":"mt9","name":"30\" wrecking bar (Selective — heavy teardown)","tier":"Selective","note":"Too long for flight case — travels in MIER bag alongside cart frame when needed"},
+        {"id":"mt10","name":"Heavy-duty extension cord (12–25ft)","tier":"Selective","note":"Travels in MIER bag — for sites with limited outlet access near work area"},
+        {"id":"mt11","name":"Cordless scanner — future acquisition","tier":"Deferred","note":"Zebra DS8178, Honeywell Voyager 1602g, or Honeywell Granit 1981i — Bluetooth 2D, upgrade path from DS6707"}
+      ]
+    },
+    {
       "id": "s17",
-      "name": "17 · Deferred / Future Items",
+      "name": "17 · Deferred / Future Items (DC Kit)",
       "items": [
         {"id":"df1","name":"Keychron Q1 Ultra + slim sleeve","tier":"Deferred","note":"Skeptical — unclear if earns space now laptop has keyboard"},
         {"id":"df2","name":"Square-hole cage nut insertion/removal tool","tier":"Deferred","note":"Skeptical — value uncertain vs. Jonard MND-1"},
@@ -485,6 +502,80 @@
         {"id":"df4","name":"KIP-600V MPO tip adapter (ASIN B0BYNFBYJT)","tier":"Deferred","note":"~$15"},
         {"id":"df5","name":"Jonard FIM-400 400× optical loupe (Amazon B0CL87CFNT)","tier":"Deferred","note":"~$130–150"},
         {"id":"df6","name":"Fluke Networks LIQ-KIT","tier":"Deferred","note":"~$3,195 — live toning + LLDP/CDP switch+port ID"}
+      ]
+    },
+    {
+      "id": "s18",
+      "name": "18 · Site Operations Kit",
+      "items": [
+        {"id":"so1","name":"Flight case — unknown brand (22\"×13.5\"×8\" interior, 13.7 lb)","tier":"Core","note":"Measure and identify brand; assess foam reuse vs new pick-n-pluck","subsection":"Case & Organization"},
+        {"id":"so2","name":"Pick-n-pluck foam — case base","tier":"Core","note":"Custom cutouts for drivers, tester, punch tool, hammer","subsection":"Case & Organization"},
+        {"id":"so3","name":"½\" closed-cell foam sheet — case lid","tier":"Core","note":"Custom-cut for flat items: bits, blades, connectors, small tools","subsection":"Case & Organization"},
+        {"id":"so4","name":"Labeled migration pouch — Brady M511","tier":"Core","note":"M511 migrates from DC kit in this clearly labeled pouch; all M511 accessories travel with it","subsection":"Case & Organization"},
+        {"id":"so5","name":"Labeled migration pouch — Wanlutech LT-600T","tier":"Selective","note":"Migrates from DC kit when active network toning is needed","subsection":"Case & Organization"},
+        {"id":"so6","name":"DeWalt DCD800B 20V MAX compact brushless drill/driver (bare)","tier":"Core","note":"Full 15-position clutch — sensitive work: keystone punch, wall anchors, furniture assembly","subsection":"Drivers & Power"},
+        {"id":"so7","name":"DeWalt DCF809B 20V MAX compact impact driver (bare)","tier":"Core","note":"Breaking seized fasteners, heavy cam-lock furniture, lag screws","subsection":"Drivers & Power"},
+        {"id":"so8","name":"DeWalt 20V MAX 2Ah batteries ×2","tier":"Core","subsection":"Drivers & Power"},
+        {"id":"so9","name":"DeWalt DCB112 20V MAX charger","tier":"Core","subsection":"Drivers & Power"},
+        {"id":"so10","name":"Klein VDV501-852 Scout Pro 3 — 18-remote cable tester kit","tier":"Core","note":"18× RJ45 + 18× coax remotes — identify multiple cable runs without walking. PoE detection, wiremap, cable length. ~$220","subsection":"Network & Testing"},
+        {"id":"so11","name":"Klein VDV500-123 analog tone probe","tier":"Core","note":"Required for analog toning with Scout Pro 3 — sold separately","subsection":"Network & Testing"},
+        {"id":"so12","name":"Non-contact voltage pen tester (dedicated)","tier":"Core","note":"Safety item — dedicated to this kit, not migrated","subsection":"Network & Testing"},
+        {"id":"so13","name":"Outlet tester 3-light (dedicated)","tier":"Core","note":"Dedicated — used constantly at go-lives for outlet verification","subsection":"Network & Testing"},
+        {"id":"so14","name":"Fluke DMM — migrates from DC kit","tier":"Selective","note":"Migrates in labeled pouch when electrical load/outlet diagnostics needed","subsection":"Network & Testing"},
+        {"id":"so15","name":"Zebra DS6707 USB barcode scanner (current)","tier":"Core","note":"Corded USB 1D/2D imager — adequate for shipping labels and device asset tags","subsection":"Network & Testing"},
+        {"id":"so16","name":"Klein VDV427-300 impact punch-down tool with 66/110 blade","tier":"Core","note":"Moved from DC kit overflow — primary in this kit","subsection":"Termination & Cabling"},
+        {"id":"so17","name":"Spare 66-block blade","tier":"Core","subsection":"Termination & Cabling"},
+        {"id":"so18","name":"Spare 110-block blade","tier":"Core","subsection":"Termination & Cabling"},
+        {"id":"so19","name":"RJ45 ratcheting crimp tool + dies","tier":"Core","note":"Moved from DC kit overflow","subsection":"Termination & Cabling"},
+        {"id":"so20","name":"RJ45 connectors ×50 (Cat6, pass-through style)","tier":"Core","subsection":"Termination & Cabling"},
+        {"id":"so21","name":"RJ45 strain relief boots (matched to connectors)","tier":"Core","subsection":"Termination & Cabling"},
+        {"id":"so22","name":"Cable stripper / combo tool","tier":"Core","subsection":"Termination & Cabling"},
+        {"id":"so23","name":"Keystone punch-down blocks (Cat6, 110-style) ×6","tier":"Core","subsection":"Termination & Cabling"},
+        {"id":"so24","name":"Low-voltage cable staples (insulated, Cat6-safe)","tier":"Core","note":"For surface-run cable securing","subsection":"Termination & Cabling"},
+        {"id":"so25","name":"Wiremold surface raceway — small assortment","tier":"Core","note":"For single printer drops or selective surface runs — source bulk locally","subsection":"Termination & Cabling"},
+        {"id":"so26","name":"Estwing B3-2LB drilling/engineer's hammer","tier":"Core","note":"2 lb head, ~10\" OAL, forged steel — anchor driving, cubicle demo, breaking seized fasteners","subsection":"Hand Tools"},
+        {"id":"so27","name":"Estwing 12\" wonder bar","tier":"Core","note":"Primary pry tool — in case","subsection":"Hand Tools"},
+        {"id":"so28","name":"18\" pry/wrecking bar","tier":"Core","note":"Secondary demo — in case","subsection":"Hand Tools"},
+        {"id":"so29","name":"Jab saw / drywall saw","tier":"Core","note":"Cable access holes, drywall cuts","subsection":"Hand Tools"},
+        {"id":"so30","name":"Knipex 10\" lineman's pliers","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so31","name":"Knipex 8\" large needlenose pliers","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so32","name":"Knipex / Klein 9\" heavy diagonal cutter","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so33","name":"Klein 9-in-1 screwdriver handle (dedicated)","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so34","name":"Klein FastBit TrueGrip handle","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so35","name":"Compact 3/8\" drive ratchet","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so36","name":"3/8\" deep socket set — curated 6–8 piece (7/16\", 1/2\", 9/16\", 5/8\", + metric equiv.)","tier":"Core","note":"Office furniture cam locks, cubicle bolts, rack hardware","subsection":"Hand Tools"},
+        {"id":"so37","name":"1/4\" drive ratchet + shallow socket set","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so38","name":"3/8\" extensions — short + medium","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so39","name":"8\" triangular file","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so40","name":"Ratcheting bar clamps, lightweight ×3","tier":"Core","note":"Temporary fixturing during assembly / glue-up","subsection":"Hand Tools"},
+        {"id":"so41","name":"Bits: #1/#2/#3 Phillips, flat, T10/T15/T20/T25/T30, 1/4\" hex","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so42","name":"6\" and 12\" impact-rated 1/4\" hex bit extensions","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so43","name":"Right-angle 1/4\" bit attachment","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so44","name":"Folding hex key set SAE + metric","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so45","name":"Utility knife + snap-off blades","tier":"Core","subsection":"Hand Tools"},
+        {"id":"so46","name":"Franklin ProSensor 710+ stud finder","tier":"Core","note":"Upgrade from T13 — adds live AC wire detection","subsection":"Alignment & Measurement"},
+        {"id":"so47","name":"Bosch GTL3 laser level","tier":"Core","note":"Self-leveling cross-line + plumb dot — AP mounting, TV/clock alignment","subsection":"Alignment & Measurement"},
+        {"id":"so48","name":"Chalk line (with chalk)","tier":"Core","note":"Floor/wall layout for cubicle grids and cable tray runs","subsection":"Alignment & Measurement"},
+        {"id":"so49","name":"Magnetic torpedo level (dedicated)","tier":"Core","subsection":"Alignment & Measurement"},
+        {"id":"so50","name":"Tape measure — 25ft metric/SAE (dedicated)","tier":"Core","subsection":"Alignment & Measurement"},
+        {"id":"so51","name":"Masonry drill bits — 3/16\" + 1/4\" (carbide-tipped)","tier":"Core","note":"DCD800B in hammer mode handles light masonry anchors","subsection":"Fasteners & Anchors"},
+        {"id":"so52","name":"Snap Toggle 1/4\"-20 hollow wall anchors ×6","tier":"Core","note":"Drywall AP mounts, TV brackets — heaviest hollow wall loads","subsection":"Fasteners & Anchors"},
+        {"id":"so53","name":"Self-drilling drywall anchors #8 ×10","tier":"Core","note":"Light loads — cable trays, signs, small brackets","subsection":"Fasteners & Anchors"},
+        {"id":"so54","name":"Plastic expansion anchors 3/16\" ×6","tier":"Core","note":"Masonry/CMU — light fixtures, small brackets","subsection":"Fasteners & Anchors"},
+        {"id":"so55","name":"Plastic expansion anchors 1/4\" ×4","tier":"Core","note":"Masonry/CMU — heavier brackets","subsection":"Fasteners & Anchors"},
+        {"id":"so56","name":"Tapcon 3/16\"×1-3/4\" concrete screws ×6","tier":"Core","note":"Direct masonry thread — cleaner than expansion anchors","subsection":"Fasteners & Anchors"},
+        {"id":"so57","name":"Hollow wall toggle anchors 1/4\" ×4","tier":"Core","note":"Heavy drywall loads — large TVs, heavy clocks","subsection":"Fasteners & Anchors"},
+        {"id":"so58","name":"Assorted machine screws + wood screws (small divided box)","tier":"Core","subsection":"Fasteners & Anchors"},
+        {"id":"so59","name":"Klein 3-ft wire reacher / Greenlee FP3 (dedicated)","tier":"Core","note":"Dedicated to this kit — not migrated from DC kit","subsection":"Cabling & Fishing"},
+        {"id":"so60","name":"Klein 9-ft Mid-Flex Glow Rod Set — migrate or duplicate","tier":"Selective","note":"May migrate from DC kit in labeled pouch; consider dedicated set if both kits deploy simultaneously","subsection":"Cabling & Fishing"},
+        {"id":"so61","name":"Retrofit low-voltage old-work mounting brackets ×4","tier":"Core","note":"Adding single drops without opening walls — source bulk locally if many needed","subsection":"Cabling & Fishing"},
+        {"id":"so62","name":"Pulling tape / mason line card","tier":"Core","subsection":"Cabling & Fishing"},
+        {"id":"so63","name":"Headlamp (dedicated)","tier":"Core","subsection":"PPE & Personal"},
+        {"id":"so64","name":"Safety glasses (dedicated)","tier":"Core","subsection":"PPE & Personal"},
+        {"id":"so65","name":"Nitrile gloves (dedicated)","tier":"Core","subsection":"PPE & Personal"},
+        {"id":"so66","name":"Fold-flat N95 masks ×4 (dedicated)","tier":"Core","subsection":"PPE & Personal"},
+        {"id":"so67","name":"Knee pads — compact / strap-on","tier":"Core","note":"Cubicle base and floor-level work","subsection":"PPE & Personal"},
+        {"id":"so68","name":"Zebra DS8178 cordless 2D scanner","tier":"Deferred","note":"Future upgrade path from DS6707 — Bluetooth, PRZM imaging, 65K scan battery. Alt: Honeywell Voyager 1602g (~$150) or Honeywell Granit 1981i (~$350) for rugged use","subsection":"Network & Testing"}
       ]
     }
   ]
