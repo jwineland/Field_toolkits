@@ -223,4 +223,4 @@ A removable server turntable / lockable lazy-Susan service plate is an optional 
 - `README.md` — this design handoff / current source of truth.
 - `IMAGE_GENERATION.md` — constraints and guidance for future visualizations.
 - `OPEN_QUESTIONS.md` — unresolved design decisions and recommended experiments.
-- `assets/` — selected surviving concept graphics. **Treat them as directional only; several contain known geometry errors documented in `IMAGE_GENERATION.md`.**
+- `assets/` — canonical SVG geometry, operating-mode, tool-docking, and weight diagrams plus an asset manifest. Use these diagrams as the visual source of truth for follow-on CAD and rendering.
