@@ -29,16 +29,23 @@
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; font-size: 14px; min-height: 100vh; }
-  .app { max-width: 900px; margin: 0 auto; padding: 16px; }
+  .app { max-width: 960px; margin: 0 auto; padding: 16px; }
   header { padding: 20px 0 16px; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
-  h1 { font-size: 20px; font-weight: 600; color: var(--text); }
+  h1 { font-size: 20px; font-weight: 600; }
   .subtitle { font-size: 12px; color: var(--text3); margin-top: 4px; }
+  .mode-bar { display: flex; gap: 0; margin-bottom: 16px; border: 1px solid var(--border2); border-radius: var(--radius); overflow: hidden; width: fit-content; }
+  .mode-btn { font-size: 13px; padding: 7px 18px; background: transparent; border: none; color: var(--text2); cursor: pointer; transition: all 0.15s; }
+  .mode-btn.active { background: var(--accent); color: #fff; }
   .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
-  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; }
+  .stat { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 10px 12px; cursor: pointer; transition: border-color 0.15s; }
+  .stat:hover { border-color: var(--border2); }
+  .stat.active-stat { border-color: var(--accent); }
   .stat-label { font-size: 11px; color: var(--text3); margin-bottom: 4px; }
   .stat-value { font-size: 22px; font-weight: 600; }
   .stat-value.green { color: var(--green); }
   .stat-value.blue { color: var(--accent); }
+  .stat-value.yellow { color: var(--yellow); }
+  .stat-value.purple { color: var(--purple); }
   .stat-value.muted { color: var(--text2); }
   .controls { display: flex; flex-direction: column; gap: 10px; margin-bottom: 16px; }
   .search input { width: 100%; background: var(--surface); border: 1px solid var(--border2); border-radius: var(--radius); padding: 9px 12px; color: var(--text); font-size: 14px; outline: none; }
@@ -53,7 +60,13 @@
   .stab:hover { border-color: var(--border2); color: var(--text); }
   .stab.active { background: var(--accent-bg); color: var(--accent); border-color: var(--accent); }
   .stab .cnt { font-size: 10px; opacity: 0.7; margin-left: 4px; }
-  .sec-header { font-size: 15px; font-weight: 600; color: var(--text); padding: 0 0 12px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+  .content-header { display: flex; align-items: center; justify-content: space-between; padding: 0 0 12px; border-bottom: 1px solid var(--border); margin-bottom: 8px; }
+  .sec-header { font-size: 15px; font-weight: 600; color: var(--text); }
+  .header-actions { display: flex; gap: 8px; }
+  .hbtn { font-size: 11px; padding: 4px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border2); background: var(--surface2); color: var(--text2); cursor: pointer; }
+  .hbtn:hover { border-color: var(--accent); color: var(--accent); }
+  .list-sec-head { font-size: 12px; font-weight: 600; color: var(--text2); background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 12px; margin: 16px 0 4px; }
+  .list-sec-head:first-of-type { margin-top: 0; }
   .subsec-head { font-size: 11px; font-weight: 500; color: var(--text3); text-transform: uppercase; letter-spacing: 0.07em; padding: 12px 0 6px; border-top: 1px solid var(--border); margin-top: 4px; }
   .subsec-head:first-of-type { border-top: none; margin-top: 0; }
   .item { display: flex; align-items: flex-start; gap: 10px; padding: 10px 0; border-bottom: 1px solid var(--border); }
@@ -62,7 +75,8 @@
   .item-name { font-size: 13px; color: var(--text); line-height: 1.45; }
   .item-note { font-size: 11px; color: var(--text2); margin-top: 3px; }
   .item-tier { font-size: 10px; color: var(--text3); margin-top: 2px; }
-  .item-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; }
+  .item-meta { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 4px; align-items: center; }
+  .item-sec-tag { font-size: 10px; color: var(--text3); background: var(--surface2); border: 1px solid var(--border); border-radius: 4px; padding: 1px 6px; }
   .badge { font-size: 10px; padding: 2px 7px; border-radius: 10px; font-weight: 500; }
   .b-owned { background: var(--green-bg); color: var(--green); }
   .b-buy { background: var(--accent-bg); color: var(--accent); }
@@ -80,6 +94,29 @@
   .comment-box .save-btn { margin-top: 4px; font-size: 11px; padding: 4px 10px; border-radius: var(--radius-sm); background: var(--accent); color: #fff; border: none; cursor: pointer; }
   .saved-comment { font-size: 11px; color: var(--text2); background: var(--surface2); border-left: 2px solid var(--accent); padding: 4px 8px; border-radius: 0 var(--radius-sm) var(--radius-sm) 0; margin-top: 4px; font-style: italic; }
   .empty { color: var(--text3); padding: 24px 0; text-align: center; font-size: 13px; }
+  .list-picker { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 16px; }
+  .lpick { font-size: 13px; padding: 8px 16px; border-radius: var(--radius); border: 1px solid var(--border2); background: var(--surface); color: var(--text2); cursor: pointer; transition: all 0.15s; display: flex; align-items: center; gap: 8px; }
+  .lpick:hover { color: var(--text); border-color: var(--border2); }
+  .lpick .lcount { font-size: 11px; background: var(--surface2); border-radius: 10px; padding: 1px 7px; }
+  .lpick.lp-owned.active { border-color: var(--green); background: var(--green-bg); color: var(--green); }
+  .lpick.lp-buy.active { border-color: var(--accent); background: var(--accent-bg); color: var(--accent); }
+  .lpick.lp-reviewing.active { border-color: var(--purple); background: var(--purple-bg); color: var(--purple); }
+  .lpick.lp-deferred.active { border-color: var(--yellow); background: var(--yellow-bg); color: var(--yellow); }
+  .lpick.lp-rejected.active { border-color: var(--red); background: var(--red-bg); color: var(--red); }
+  .lpick.lp-unset.active { border-color: var(--border2); background: var(--surface2); color: var(--text); }
+  @media print {
+    .auth-bar, .mode-bar, .controls, .sec-tabs, .list-picker, .item-right, .actions, .sync-status, .stats, .header-actions { display: none !important; }
+    body { background: #fff; color: #000; }
+    .list-sec-head { background: #eee; border: 1px solid #ccc; color: #000; break-inside: avoid; }
+    .item { break-inside: avoid; border-bottom: 1px solid #ddd; }
+    .item-name { color: #000; font-size: 12px; }
+    .item-note { color: #444; font-size: 11px; }
+    .item-tier { color: #888; font-size: 10px; }
+    .item-sec-tag { background: #f0f0f0; border: 1px solid #ccc; color: #444; }
+    .saved-comment { background: #f5f5f5; border-left: 2px solid #999; color: #444; }
+    .sec-header { color: #000; font-size: 16px; }
+    .content-header { border-bottom: 2px solid #000; margin-bottom: 12px; padding-bottom: 8px; }
+  }
   .actions { display: flex; gap: 10px; margin-top: 16px; padding-top: 16px; border-top: 1px solid var(--border); }
   .actions button { flex: 1; font-size: 13px; padding: 9px; border-radius: var(--radius); border: 1px solid var(--border2); background: var(--surface); color: var(--text); cursor: pointer; transition: all 0.15s; }
   .actions button:hover { border-color: var(--accent); color: var(--accent); }
@@ -98,6 +135,7 @@
   @media (max-width: 500px) {
     .stats { grid-template-columns: repeat(2, 1fr); }
     .item-right { flex-direction: row; align-items: center; }
+    .mode-btn { font-size: 12px; padding: 6px 12px; }
   }
 </style>
 </head>
@@ -114,321 +152,302 @@
     <span class="auth-status" id="auth-status">Not connected — changes saved locally only</span>
   </div>
 
+  <div class="mode-bar">
+    <button class="mode-btn active" onclick="setMode('checklist')">✓ Checklist</button>
+    <button class="mode-btn" onclick="setMode('lists')">≡ Status Lists</button>
+  </div>
+
   <div class="stats">
-    <div class="stat"><div class="stat-label">Total items</div><div class="stat-value muted" id="s-tot">0</div></div>
-    <div class="stat"><div class="stat-label">Owned</div><div class="stat-value green" id="s-own">0</div></div>
-    <div class="stat"><div class="stat-label">To buy</div><div class="stat-value blue" id="s-buy">0</div></div>
-    <div class="stat"><div class="stat-label">Unreviewed</div><div class="stat-value muted" id="s-un">0</div></div>
+    <div class="stat" onclick="statClick('unset')"><div class="stat-label">Unreviewed</div><div class="stat-value muted" id="s-un">0</div></div>
+    <div class="stat" onclick="statClick('owned')"><div class="stat-label">Owned</div><div class="stat-value green" id="s-own">0</div></div>
+    <div class="stat" onclick="statClick('buy')"><div class="stat-label">To buy</div><div class="stat-value blue" id="s-buy">0</div></div>
+    <div class="stat" onclick="statClick('reviewing')"><div class="stat-label">Reviewing</div><div class="stat-value purple" id="s-rev">0</div></div>
   </div>
 
-  <div class="controls">
-    <div class="search"><input type="search" id="srch" placeholder="Search all items…"></div>
-    <div class="filters">
-      <button class="fb active" data-f="all">All</button>
-      <button class="fb" data-f="unset">Unreviewed</button>
-      <button class="fb" data-f="owned">Owned</button>
-      <button class="fb" data-f="buy">Buy</button>
-      <button class="fb" data-f="deferred">Deferred</button>
-      <button class="fb" data-f="reviewing">Reviewing</button>
-      <button class="fb" data-f="rejected">Rejected</button>
+  <div id="mode-checklist">
+    <div class="controls">
+      <div class="search"><input type="search" id="srch" placeholder="Search all items…"></div>
+      <div class="filters">
+        <button class="fb active" data-f="all">All</button>
+        <button class="fb" data-f="unset">Unreviewed</button>
+        <button class="fb" data-f="owned">Owned</button>
+        <button class="fb" data-f="buy">Buy</button>
+        <button class="fb" data-f="deferred">Deferred</button>
+        <button class="fb" data-f="reviewing">Reviewing</button>
+        <button class="fb" data-f="rejected">Rejected</button>
+      </div>
     </div>
+    <div class="sec-tabs" id="sec-tabs"></div>
+    <div class="sync-status" id="sync-status"></div>
+    <div class="content-header">
+      <div class="sec-header" id="sec-header"></div>
+    </div>
+    <div id="list"></div>
   </div>
 
-  <div class="sec-tabs" id="sec-tabs"></div>
-  <div class="sync-status" id="sync-status"></div>
-  <div class="sec-header" id="sec-header"></div>
-  <div id="list"></div>
+  <div id="mode-lists" style="display:none">
+    <div class="list-picker" id="list-picker"></div>
+    <div class="sync-status" id="sync-status2"></div>
+    <div class="content-header">
+      <div class="sec-header" id="list-header"></div>
+      <div class="header-actions">
+        <button class="hbtn" onclick="printList()">🖨 Print</button>
+        <button class="hbtn" onclick="exportListCSV()">↓ CSV</button>
+      </div>
+    </div>
+    <div id="status-list"></div>
+  </div>
 
   <div class="actions">
-    <button onclick="exportCSV()">Export CSV</button>
+    <button onclick="exportCSV()">Export all CSV</button>
     <button class="primary" onclick="syncToGitHub()">Save to GitHub</button>
   </div>
 </div>
 
 <script>
-const OWNER = 'jwineland';
-const REPO = 'Field_toolkits';
-const DATA_PATH = 'data.json';
-const STATE_PATH = 'state.json';
-const BRANCH = 'main';
+const OWNER='jwineland',REPO='Field_toolkits',DATA_PATH='data.json',STATE_PATH='state.json',BRANCH='main';
+let kitData=null,state={},comments={},curSec=null,curListStatus='buy',appMode='checklist',filt='all',q='',pat='',openComments={};
+const SL=['unset','owned','buy','deferred','reviewing','rejected'];
+const LB={unset:'—',owned:'Owned',buy:'Buy',deferred:'Deferred',reviewing:'Reviewing',rejected:'Rejected'};
+const LIST_LABELS={owned:'Owned',buy:'Buy List',reviewing:'Reviewing',deferred:'Deferred',rejected:'Rejected',unset:'Unreviewed'};
 
-let kitData = null;
-let state = {};
-let comments = {};
-let curSec = null;
-let filt = 'all';
-let q = '';
-let pat = '';
-let openComments = {};
-
-const SL = ['unset','owned','buy','deferred','reviewing','rejected'];
-const LB = {unset:'—',owned:'Owned',buy:'Buy',deferred:'Deferred',reviewing:'Reviewing',rejected:'Rejected'};
-
-async function init() {
-  // Load kit data
-  const r = await fetch('data.json?_=' + Date.now());
-  kitData = await r.json();
-
-  // Load saved state from GitHub or localStorage
+async function init(){
+  const r=await fetch('data.json?_='+Date.now());
+  kitData=await r.json();
   await loadState();
-
-  curSec = kitData.sections[0].id;
-  buildTabs();
-  updateStats();
-  render();
+  curSec=kitData.sections[0].id;
+  buildTabs();updateStats();render();buildListPicker();
 }
 
-async function loadState() {
-  // Try GitHub first
-  try {
-    const r = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${STATE_PATH}?_=${Date.now()}`);
-    if (r.ok) {
-      const saved = await r.json();
-      state = saved.status || {};
-      comments = saved.comments || {};
-      setSyncStatus('Loaded from GitHub', 'ok');
-      return;
-    }
-  } catch(e) {}
-  // Fall back to localStorage
-  const ls = localStorage.getItem('fk_state');
-  if (ls) { const p = JSON.parse(ls); state = p.status||{}; comments = p.comments||{}; }
-  setSyncStatus('Using local storage — connect GitHub to share', '');
+async function loadState(){
+  try{
+    const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${STATE_PATH}?_=${Date.now()}`);
+    if(r.ok){const s=await r.json();state=s.status||{};comments=s.comments||{};setSyncStatus('Loaded from GitHub','ok');return;}
+  }catch(e){}
+  const ls=localStorage.getItem('fk_state');
+  if(ls){const p=JSON.parse(ls);state=p.status||{};comments=p.comments||{};}
+  setSyncStatus('Using local storage — connect GitHub to share','');
 }
 
-function getItemState(id) { return state[id] || 'unset'; }
+function getItemState(id){return state[id]||'unset';}
+function saveLocal(){localStorage.setItem('fk_state',JSON.stringify({status:state,comments:comments}));}
 
-function saveLocal() {
-  localStorage.setItem('fk_state', JSON.stringify({status: state, comments: comments}));
+async function syncToGitHub(){
+  if(!pat){alert('Enter a GitHub PAT first.');return;}
+  setSyncStatus('Saving...','');
+  try{
+    let sha=null;
+    try{const r=await ghApi('GET',`contents/${STATE_PATH}`);if(r.sha)sha=r.sha;}catch(e){}
+    const content=JSON.stringify({status:state,comments:comments,updated:new Date().toISOString()},null,2);
+    const body={message:'Update kit state — '+new Date().toISOString(),content:btoa(unescape(encodeURIComponent(content))),branch:BRANCH};
+    if(sha)body.sha=sha;
+    await ghApi('PUT',`contents/${STATE_PATH}`,body);
+    setSyncStatus('Saved to GitHub ✓','ok');saveLocal();
+  }catch(e){setSyncStatus('Save failed: '+e.message,'err');}
 }
 
-async function syncToGitHub() {
-  if (!pat) { alert('Enter a GitHub PAT first to save to GitHub.'); return; }
-  setSyncStatus('Saving...', '');
-  try {
-    // Get current SHA of state.json if it exists
-    let sha = null;
-    try {
-      const r = await ghApi('GET', `contents/${STATE_PATH}`);
-      if (r.sha) sha = r.sha;
-    } catch(e) {}
-
-    const content = JSON.stringify({status: state, comments: comments, updated: new Date().toISOString()}, null, 2);
-    const body = { message: 'Update kit state — ' + new Date().toISOString(), content: btoa(unescape(encodeURIComponent(content))), branch: BRANCH };
-    if (sha) body.sha = sha;
-    await ghApi('PUT', `contents/${STATE_PATH}`, body);
-    setSyncStatus('Saved to GitHub ✓', 'ok');
-    saveLocal();
-  } catch(e) {
-    setSyncStatus('Save failed: ' + e.message, 'err');
-  }
-}
-
-async function ghApi(method, path, body) {
-  const r = await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/${path}`, {
-    method,
-    headers: { Authorization: 'token ' + pat, 'Content-Type': 'application/json', Accept: 'application/vnd.github.v3+json' },
-    body: body ? JSON.stringify(body) : undefined
-  });
-  if (!r.ok) throw new Error(r.status + ' ' + r.statusText);
+async function ghApi(method,path,body){
+  const r=await fetch(`https://api.github.com/repos/${OWNER}/${REPO}/${path}`,{
+    method,headers:{Authorization:'token '+pat,'Content-Type':'application/json',Accept:'application/vnd.github.v3+json'},
+    body:body?JSON.stringify(body):undefined});
+  if(!r.ok)throw new Error(r.status+' '+r.statusText);
   return r.json();
 }
 
-function saveAuth() {
-  pat = document.getElementById('pat-input').value.trim();
-  document.getElementById('pat-input').value = '';
-  if (pat) {
-    document.getElementById('auth-status').textContent = 'Token set — changes will save to GitHub';
-    document.getElementById('auth-status').className = 'auth-status ok';
-  }
+function saveAuth(){
+  pat=document.getElementById('pat-input').value.trim();
+  document.getElementById('pat-input').value='';
+  if(pat){document.getElementById('auth-status').textContent='Token set — changes will save to GitHub';document.getElementById('auth-status').className='auth-status ok';}
 }
 
-function setSyncStatus(msg, cls) {
-  const el = document.getElementById('sync-status');
-  el.textContent = msg;
-  el.className = 'sync-status' + (cls ? ' ' + cls : '');
+function setSyncStatus(msg,cls){
+  ['sync-status','sync-status2'].forEach(id=>{const el=document.getElementById(id);if(el){el.textContent=msg;el.className='sync-status'+(cls?' '+cls:'');}});
 }
 
-function updateStats() {
-  let tot=0,own=0,buy=0,un=0;
-  kitData.sections.forEach(s => s.items.forEach(i => {
-    tot++;
-    const st = getItemState(i.id);
-    if (st==='owned') own++;
-    if (st==='buy') buy++;
-    if (st==='unset') un++;
+function setMode(m){
+  appMode=m;
+  document.getElementById('mode-checklist').style.display=m==='checklist'?'':'none';
+  document.getElementById('mode-lists').style.display=m==='lists'?'':'none';
+  document.querySelectorAll('.mode-btn').forEach((b,i)=>b.classList.toggle('active',(m==='checklist'&&i===0)||(m==='lists'&&i===1)));
+  if(m==='lists'){buildListPicker();renderStatusList();}
+  updateStats();
+}
+
+function statClick(st){setMode('lists');curListStatus=st;buildListPicker();renderStatusList();updateStats();}
+
+function updateStats(){
+  let own=0,buy=0,un=0,rev=0;
+  kitData.sections.forEach(s=>s.items.forEach(i=>{
+    const st=getItemState(i.id);
+    if(st==='owned')own++;if(st==='buy')buy++;if(st==='unset')un++;if(st==='reviewing')rev++;
   }));
-  document.getElementById('s-tot').textContent = tot;
-  document.getElementById('s-own').textContent = own;
-  document.getElementById('s-buy').textContent = buy;
-  document.getElementById('s-un').textContent = un;
+  document.getElementById('s-own').textContent=own;
+  document.getElementById('s-buy').textContent=buy;
+  document.getElementById('s-un').textContent=un;
+  document.getElementById('s-rev').textContent=rev;
+  document.querySelectorAll('.stat').forEach((el,i)=>{
+    const map=['unset','owned','buy','reviewing'];
+    el.classList.toggle('active-stat',appMode==='lists'&&map[i]===curListStatus);
+  });
 }
 
-function buildTabs() {
-  const el = document.getElementById('sec-tabs');
-  el.innerHTML = '';
-  kitData.sections.forEach(sec => {
-    const total = sec.items.length;
-    const done = sec.items.filter(i => getItemState(i.id) !== 'unset').length;
-    const b = document.createElement('button');
-    b.className = 'stab' + (sec.id === curSec ? ' active' : '');
-    b.innerHTML = sec.name.replace(/^\d+ · /, '') + `<span class="cnt">${done}/${total}</span>`;
-    b.onclick = () => { curSec = sec.id; buildTabs(); render(); };
+function buildTabs(){
+  const el=document.getElementById('sec-tabs');el.innerHTML='';
+  kitData.sections.forEach(sec=>{
+    const total=sec.items.length;
+    const done=sec.items.filter(i=>getItemState(i.id)!=='unset').length;
+    const b=document.createElement('button');
+    b.className='stab'+(sec.id===curSec?' active':'');
+    b.innerHTML=sec.name.replace(/^\d+ · /,'')+`<span class="cnt">${done}/${total}</span>`;
+    b.onclick=()=>{curSec=sec.id;buildTabs();render();};
     el.appendChild(b);
   });
 }
 
-function render() {
-  const sec = kitData.sections.find(s => s.id === curSec);
-  document.getElementById('sec-header').textContent = sec.name;
-  const el = document.getElementById('list');
-  el.innerHTML = '';
-
-  const items = sec.items.filter(i => {
-    const mf = filt === 'all' || getItemState(i.id) === filt;
-    const mq = !q || i.name.toLowerCase().includes(q) || (i.note||'').toLowerCase().includes(q) || (i.tier||'').toLowerCase().includes(q);
-    return mf && mq;
+function render(){
+  const sec=kitData.sections.find(s=>s.id===curSec);
+  document.getElementById('sec-header').textContent=sec.name;
+  const el=document.getElementById('list');el.innerHTML='';
+  const items=sec.items.filter(i=>{
+    const mf=filt==='all'||getItemState(i.id)===filt;
+    const mq=!q||i.name.toLowerCase().includes(q)||(i.note||'').toLowerCase().includes(q)||(i.tier||'').toLowerCase().includes(q);
+    return mf&&mq;
   });
-
-  if (!items.length) { el.innerHTML = '<div class="empty">No items match.</div>'; return; }
-
-  // Group by subsection if present
-  const hasSubs = items.some(i => i.subsection);
-  if (hasSubs) {
-    const subs = [...new Set(items.map(i => i.subsection).filter(Boolean))];
-    subs.forEach(sub => {
-      const sh = document.createElement('div');
-      sh.className = 'subsec-head'; sh.textContent = sub; el.appendChild(sh);
-      items.filter(i => i.subsection === sub).forEach(i => el.appendChild(makeItem(i)));
+  if(!items.length){el.innerHTML='<div class="empty">No items match.</div>';return;}
+  const hasSubs=items.some(i=>i.subsection);
+  if(hasSubs){
+    const subs=[...new Set(items.map(i=>i.subsection).filter(Boolean))];
+    subs.forEach(sub=>{
+      const sh=document.createElement('div');sh.className='subsec-head';sh.textContent=sub;el.appendChild(sh);
+      items.filter(i=>i.subsection===sub).forEach(i=>el.appendChild(makeItem(i,false)));
     });
-    items.filter(i => !i.subsection).forEach(i => el.appendChild(makeItem(i)));
-  } else {
-    items.forEach(i => el.appendChild(makeItem(i)));
-  }
+    items.filter(i=>!i.subsection).forEach(i=>el.appendChild(makeItem(i,false)));
+  }else{items.forEach(i=>el.appendChild(makeItem(i,false)));}
 }
 
-function makeItem(i) {
-  const st = getItemState(i.id);
-  const d = document.createElement('div');
-  d.className = 'item';
-  d.id = 'item-' + i.id;
+function buildListPicker(){
+  const el=document.getElementById('list-picker');if(!el)return;
+  el.innerHTML='';
+  const counts={};SL.forEach(s=>counts[s]=0);
+  kitData.sections.forEach(sec=>sec.items.forEach(i=>{counts[getItemState(i.id)]++;}));
+  ['buy','reviewing','owned','deferred','unset','rejected'].forEach(st=>{
+    const b=document.createElement('button');
+    b.className=`lpick lp-${st}`+(st===curListStatus?' active':'');
+    b.innerHTML=`${LIST_LABELS[st]} <span class="lcount">${counts[st]}</span>`;
+    b.onclick=()=>{curListStatus=st;buildListPicker();renderStatusList();updateStats();};
+    el.appendChild(b);
+  });
+}
 
-  const left = document.createElement('div');
-  left.className = 'item-left';
-  left.innerHTML = `<div class="item-name">${i.name}</div>${i.note ? `<div class="item-note">${i.note}</div>` : ''}<div class="item-tier">${i.tier||''}</div>`;
+function renderStatusList(){
+  const el=document.getElementById('status-list');
+  const hdr=document.getElementById('list-header');
+  if(!el||!hdr)return;
+  el.innerHTML='';
+  let total=0;
+  kitData.sections.forEach(sec=>sec.items.forEach(i=>{if(getItemState(i.id)===curListStatus)total++;}));
+  hdr.textContent=`${LIST_LABELS[curListStatus]} — ${total} item${total!==1?'s':''}`;
+  let shown=0;
+  kitData.sections.forEach(sec=>{
+    const items=sec.items.filter(i=>getItemState(i.id)===curListStatus);
+    if(!items.length)return;shown+=items.length;
+    const sh=document.createElement('div');
+    sh.className='list-sec-head';
+    sh.textContent=sec.name+` (${items.length})`;
+    el.appendChild(sh);
+    items.forEach(i=>el.appendChild(makeItem(i,true)));
+  });
+  if(!shown)el.innerHTML=`<div class="empty">No items tagged as "${LIST_LABELS[curListStatus]}" yet.</div>`;
+}
 
-  // Badge
-  if (st !== 'unset') {
-    const meta = document.createElement('div');
-    meta.className = 'item-meta';
-    meta.innerHTML = `<span class="badge b-${st}">${LB[st]}</span>`;
-    left.appendChild(meta);
-  }
+function printList(){window.print();}
 
-  // Saved comment display
-  if (comments[i.id]) {
-    const cd = document.createElement('div');
-    cd.className = 'saved-comment';
-    cd.id = 'cdisp-' + i.id;
-    cd.textContent = comments[i.id];
-    left.appendChild(cd);
-  }
+function exportListCSV(){
+  const rows=['Section,Item,Note,Tier,Status,Comment'];
+  kitData.sections.forEach(sec=>{
+    sec.items.filter(i=>getItemState(i.id)===curListStatus).forEach(i=>{
+      rows.push(`"${sec.name}","${i.name.replace(/"/g,"'")}","${(i.note||'').replace(/"/g,"'")}","${i.tier||''}","${LB[getItemState(i.id)]}","${(comments[i.id]||'').replace(/"/g,"'")}"`);
+    });
+  });
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));
+  a.download=`field-kit-${curListStatus}.csv`;a.click();
+}
 
-  // Comment input (if open)
-  if (openComments[i.id]) {
-    const cb = document.createElement('div');
-    cb.className = 'comment-box';
-    const ta = document.createElement('textarea');
-    ta.placeholder = 'Add a comment or note…';
-    ta.value = comments[i.id] || '';
-    const sb = document.createElement('button');
-    sb.className = 'save-btn';
-    sb.textContent = 'Save comment';
-    sb.onclick = () => {
-      const v = ta.value.trim();
-      if (v) comments[i.id] = v; else delete comments[i.id];
-      openComments[i.id] = false;
-      saveLocal();
-      render();
+function makeItem(i,listMode){
+  const st=getItemState(i.id);
+  const secName=listMode?kitData.sections.find(s=>s.items.some(x=>x.id===i.id))?.name:null;
+  const d=document.createElement('div');d.className='item';d.id='item-'+i.id;
+  const left=document.createElement('div');left.className='item-left';
+  left.innerHTML=`<div class="item-name">${i.name}</div>${i.note?`<div class="item-note">${i.note}</div>`:''}<div class="item-tier">${i.tier||''}</div>`;
+  const meta=document.createElement('div');meta.className='item-meta';
+  if(st!=='unset')meta.innerHTML+=`<span class="badge b-${st}">${LB[st]}</span>`;
+  if(listMode&&secName)meta.innerHTML+=`<span class="item-sec-tag">${secName.replace(/^\d+ · /,'')}</span>`;
+  if(i.subsection)meta.innerHTML+=`<span class="item-sec-tag">${i.subsection}</span>`;
+  if(meta.innerHTML)left.appendChild(meta);
+  if(comments[i.id]){const cd=document.createElement('div');cd.className='saved-comment';cd.textContent='💬 '+comments[i.id];left.appendChild(cd);}
+  if(openComments[i.id]){
+    const cb=document.createElement('div');cb.className='comment-box';
+    const ta=document.createElement('textarea');ta.placeholder='Add a comment or note…';ta.value=comments[i.id]||'';
+    const sb=document.createElement('button');sb.className='save-btn';sb.textContent='Save';
+    sb.onclick=()=>{
+      const v=ta.value.trim();if(v)comments[i.id]=v;else delete comments[i.id];
+      openComments[i.id]=false;saveLocal();
+      if(appMode==='lists')renderStatusList();else render();
     };
-    cb.appendChild(ta); cb.appendChild(sb);
-    left.appendChild(cb);
+    cb.appendChild(ta);cb.appendChild(sb);left.appendChild(cb);
   }
-
-  const right = document.createElement('div');
-  right.className = 'item-right';
-
-  const sel = document.createElement('select');
-  sel.className = 'ss';
-  SL.forEach(s => { const o = document.createElement('option'); o.value=s; o.textContent=LB[s]; if(s===st)o.selected=true; sel.appendChild(o); });
-  sel.onchange = e => {
-    state[i.id] = e.target.value;
-    saveLocal();
-    updateStats();
-    buildTabs();
-    if (filt !== 'all') render(); else {
-      // just re-render the item badge in place
-      const existing = document.getElementById('item-' + i.id);
-      if (existing) existing.replaceWith(makeItem(i));
-      updateStats(); buildTabs();
-    }
+  const right=document.createElement('div');right.className='item-right';
+  const sel=document.createElement('select');sel.className='ss';
+  SL.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=LB[s];if(s===st)o.selected=true;sel.appendChild(o);});
+  sel.onchange=e=>{
+    state[i.id]=e.target.value;saveLocal();updateStats();buildTabs();buildListPicker();
+    if(appMode==='lists')renderStatusList();
+    else{const ex=document.getElementById('item-'+i.id);if(ex)ex.replaceWith(makeItem(i,false));updateStats();buildTabs();}
   };
-
-  const cbtn = document.createElement('button');
-  cbtn.className = 'comment-btn';
-  cbtn.textContent = comments[i.id] ? '✎ edit note' : '+ note';
-  cbtn.onclick = () => { openComments[i.id] = !openComments[i.id]; render(); };
-
-  right.appendChild(sel);
-  right.appendChild(cbtn);
-  d.appendChild(left);
-  d.appendChild(right);
+  const cbtn=document.createElement('button');cbtn.className='comment-btn';
+  cbtn.textContent=comments[i.id]?'✎ note':'+ note';
+  cbtn.onclick=()=>{openComments[i.id]=!openComments[i.id];if(appMode==='lists')renderStatusList();else render();};
+  right.appendChild(sel);right.appendChild(cbtn);
+  d.appendChild(left);d.appendChild(right);
   return d;
 }
 
-// Search
-document.getElementById('srch').addEventListener('input', e => {
-  q = e.target.value.toLowerCase();
-  if (q) {
-    // Search across all sections
-    document.getElementById('sec-header').textContent = 'Search results';
-    const el = document.getElementById('list');
-    el.innerHTML = '';
-    kitData.sections.forEach(sec => {
-      const items = sec.items.filter(i => {
-        const mf = filt==='all'||getItemState(i.id)===filt;
-        const mq = i.name.toLowerCase().includes(q)||(i.note||'').toLowerCase().includes(q)||(i.tier||'').toLowerCase().includes(q);
+document.getElementById('srch').addEventListener('input',e=>{
+  q=e.target.value.toLowerCase();
+  if(q){
+    document.getElementById('sec-header').textContent='Search results';
+    const el=document.getElementById('list');el.innerHTML='';
+    kitData.sections.forEach(sec=>{
+      const items=sec.items.filter(i=>{
+        const mf=filt==='all'||getItemState(i.id)===filt;
+        const mq=i.name.toLowerCase().includes(q)||(i.note||'').toLowerCase().includes(q)||(i.tier||'').toLowerCase().includes(q);
         return mf&&mq;
       });
-      if (!items.length) return;
-      const sh = document.createElement('div');
-      sh.style.cssText = 'font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;padding:12px 0 6px;border-top:1px solid var(--border);margin-top:4px';
-      sh.textContent = sec.name; el.appendChild(sh);
-      items.forEach(i => el.appendChild(makeItem(i)));
+      if(!items.length)return;
+      const sh=document.createElement('div');
+      sh.style.cssText='font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;padding:12px 0 6px;border-top:1px solid var(--border);margin-top:4px';
+      sh.textContent=sec.name;el.appendChild(sh);
+      items.forEach(i=>el.appendChild(makeItem(i,false)));
     });
-  } else {
-    render();
-  }
+  }else{render();}
 });
 
-// Filters
-document.querySelectorAll('.fb').forEach(b => b.addEventListener('click', () => {
-  filt = b.dataset.f;
-  document.querySelectorAll('.fb').forEach(x => x.classList.remove('active'));
+document.querySelectorAll('.fb').forEach(b=>b.addEventListener('click',()=>{
+  filt=b.dataset.f;
+  document.querySelectorAll('.fb').forEach(x=>x.classList.remove('active'));
   b.classList.add('active');
-  if (q) document.getElementById('srch').dispatchEvent(new Event('input')); else render();
-  updateStats();
+  if(q)document.getElementById('srch').dispatchEvent(new Event('input'));else render();
 }));
 
-function exportCSV() {
-  const rows = ['Section,Subsection,Item,Note,Tier,Status,Comment'];
-  kitData.sections.forEach(s => s.items.forEach(i => {
-    rows.push(`"${s.name}","${i.subsection||''}","${i.name.replace(/"/g,"'")}" ,"${(i.note||'').replace(/"/g,"'")}","${i.tier||''}","${LB[getItemState(i.id)]}","${(comments[i.id]||'').replace(/"/g,"'")}"`);
+function exportCSV(){
+  const rows=['Section,Subsection,Item,Note,Tier,Status,Comment'];
+  kitData.sections.forEach(s=>s.items.forEach(i=>{
+    rows.push(`"${s.name}","${i.subsection||''}","${i.name.replace(/"/g,"'")}","${(i.note||'').replace(/"/g,"'")}","${i.tier||''}","${LB[getItemState(i.id)]}","${(comments[i.id]||'').replace(/"/g,"'")}"`);
   }));
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(new Blob([rows.join('\n')], {type:'text/csv'}));
-  a.download = 'field-kit.csv';
-  a.click();
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(new Blob([rows.join('\n')],{type:'text/csv'}));
+  a.download='field-kit-all.csv';a.click();
 }
 
 init();
