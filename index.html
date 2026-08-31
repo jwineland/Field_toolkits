@@ -69,8 +69,6 @@
   .list-sec-head:first-of-type{margin-top:0}
   .subsec-head{font-size:11px;font-weight:500;color:var(--text3);text-transform:uppercase;letter-spacing:.07em;padding:12px 0 6px;border-top:1px solid var(--border);margin-top:4px}
   .subsec-head:first-of-type{border-top:none;margin-top:0}
-
-  /* Item layout */
   .item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
   .item:last-child{border-bottom:none}
   .item-thumb-wrap{flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer}
@@ -102,8 +100,6 @@
   .comment-box .save-btn{margin-top:4px;font-size:11px;padding:4px 10px;border-radius:var(--radius-sm);background:var(--accent);color:#fff;border:none;cursor:pointer}
   .saved-comment{font-size:11px;color:var(--text2);background:var(--surface2);border-left:2px solid var(--accent);padding:4px 8px;border-radius:0 var(--radius-sm) var(--radius-sm) 0;margin-top:4px;font-style:italic}
   .empty{color:var(--text3);padding:24px 0;text-align:center;font-size:13px}
-
-  /* Image lightbox */
   .lightbox{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:1000;align-items:center;justify-content:center;flex-direction:column;gap:12px}
   .lightbox.open{display:flex}
   .lightbox img{max-width:90vw;max-height:80vh;object-fit:contain;border-radius:var(--radius);background:var(--surface)}
@@ -111,8 +107,6 @@
   .lightbox-close{position:absolute;top:16px;right:20px;font-size:24px;color:var(--text2);cursor:pointer;background:none;border:none;line-height:1}
   .lightbox-close:hover{color:var(--text)}
   .lightbox-link{font-size:12px;color:var(--accent);text-decoration:none}
-
-  /* Status list */
   .list-picker{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:16px}
   .lpick{font-size:13px;padding:8px 16px;border-radius:var(--radius);border:1px solid var(--border2);background:var(--surface);color:var(--text2);cursor:pointer;transition:all .15s;display:flex;align-items:center;gap:8px}
   .lpick:hover{color:var(--text);border-color:var(--border2)}
@@ -123,7 +117,6 @@
   .lpick.lp-deferred.active{border-color:var(--yellow);background:var(--yellow-bg);color:var(--yellow)}
   .lpick.lp-rejected.active{border-color:var(--red);background:var(--red-bg);color:var(--red)}
   .lpick.lp-unset.active{border-color:var(--border2);background:var(--surface2);color:var(--text)}
-
   @media print{
     .auth-bar,.mode-bar,.controls,.sec-tabs,.list-picker,.item-right,.actions,.sync-status,.stats,.header-actions,.item-thumb-wrap,.lightbox{display:none!important}
     body{background:#fff;color:#000}
@@ -166,25 +159,21 @@
     <h1>DC Field Deployment Kit</h1>
     <div class="subtitle">Rev 17 &nbsp;·&nbsp; jwineland/Field_toolkits &nbsp;·&nbsp; Categorize, comment, export</div>
   </header>
-
   <div class="auth-bar">
     <input type="password" id="pat-input" placeholder="GitHub Personal Access Token (repo scope) — for saving changes">
     <button onclick="saveAuth()">Connect</button>
     <span class="auth-status" id="auth-status">Not connected — changes saved locally only</span>
   </div>
-
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('checklist')">✓ Checklist</button>
     <button class="mode-btn" onclick="setMode('lists')">≡ Status Lists</button>
   </div>
-
   <div class="stats">
     <div class="stat" onclick="statClick('unset')"><div class="stat-label">Unreviewed</div><div class="stat-value muted" id="s-un">0</div></div>
     <div class="stat" onclick="statClick('owned')"><div class="stat-label">Owned</div><div class="stat-value green" id="s-own">0</div></div>
     <div class="stat" onclick="statClick('buy')"><div class="stat-label">To buy</div><div class="stat-value blue" id="s-buy">0</div></div>
     <div class="stat" onclick="statClick('reviewing')"><div class="stat-label">Reviewing</div><div class="stat-value purple" id="s-rev">0</div></div>
   </div>
-
   <div id="mode-checklist">
     <div class="controls">
       <div class="search"><input type="search" id="srch" placeholder="Search all items…"></div>
@@ -200,12 +189,9 @@
     </div>
     <div class="sec-tabs" id="sec-tabs"></div>
     <div class="sync-status" id="sync-status"></div>
-    <div class="content-header">
-      <div class="sec-header" id="sec-header"></div>
-    </div>
+    <div class="content-header"><div class="sec-header" id="sec-header"></div></div>
     <div id="list"></div>
   </div>
-
   <div id="mode-lists" style="display:none">
     <div class="list-picker" id="list-picker"></div>
     <div class="sync-status" id="sync-status2"></div>
@@ -218,14 +204,12 @@
     </div>
     <div id="status-list"></div>
   </div>
-
   <div class="actions">
     <button onclick="exportCSV()">Export all CSV</button>
     <button class="primary" onclick="syncToGitHub()">Save to GitHub</button>
   </div>
 </div>
 
-<!-- Lightbox -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <button class="lightbox-close" onclick="closeLightbox()">✕</button>
   <img id="lb-img" src="" alt="">
@@ -234,11 +218,14 @@
 </div>
 
 <script>
-const OWNER='jwineland',REPO='Field_toolkits',DATA_PATH='data.json',STATE_PATH='state.json',BRANCH='main';
+const OWNER='jwineland',REPO='Field_toolkits',STATE_PATH='state.json',BRANCH='main';
+const PROXY='https://images.weserv.nl/?w=120&h=120&fit=contain&bg=1a1d27&url=';
 let kitData=null,state={},comments={},curSec=null,curListStatus='buy',appMode='checklist',filt='all',q='',pat='',openComments={};
 const SL=['unset','owned','buy','deferred','reviewing','rejected'];
 const LB={unset:'—',owned:'Owned',buy:'Buy',deferred:'Deferred',reviewing:'Reviewing',rejected:'Rejected'};
 const LIST_LABELS={owned:'Owned',buy:'Buy List',reviewing:'Reviewing',deferred:'Deferred',rejected:'Rejected',unset:'Unreviewed'};
+
+function proxyImg(url){return PROXY+encodeURIComponent(url);}
 
 async function init(){
   const r=await fetch('data.json?_='+Date.now());
@@ -380,10 +367,8 @@ function renderStatusList(){
   kitData.sections.forEach(sec=>{
     const items=sec.items.filter(i=>getItemState(i.id)===curListStatus);
     if(!items.length)return;shown+=items.length;
-    const sh=document.createElement('div');
-    sh.className='list-sec-head';
-    sh.textContent=sec.name+` (${items.length})`;
-    el.appendChild(sh);
+    const sh=document.createElement('div');sh.className='list-sec-head';
+    sh.textContent=sec.name+` (${items.length})`;el.appendChild(sh);
     items.forEach(i=>el.appendChild(makeItem(i,true)));
   });
   if(!shown)el.innerHTML=`<div class="empty">No items tagged as "${LIST_LABELS[curListStatus]}" yet.</div>`;
@@ -405,7 +390,7 @@ function exportListCSV(){
 
 function openLightbox(i){
   if(!i.image)return;
-  document.getElementById('lb-img').src=i.image;
+  document.getElementById('lb-img').src=proxyImg(i.image);
   document.getElementById('lb-img').alt=i.name;
   document.getElementById('lb-name').textContent=i.name;
   const lnk=document.getElementById('lb-link');
@@ -430,9 +415,13 @@ function makeThumb(i){
     wrap.title='Click to enlarge';
     const img=document.createElement('img');
     img.loading='lazy';
-    img.src=i.image;
+    img.src=proxyImg(i.image);
     img.alt=i.name;
-    img.onerror=()=>{wrap.innerHTML='📦';wrap.className='item-thumb-wrap no-img';wrap.onclick=null;};
+    img.onerror=()=>{
+      // fallback: try original URL directly
+      if(!img.dataset.fallback){img.dataset.fallback='1';img.src=i.image;}
+      else{wrap.innerHTML='📦';wrap.className='item-thumb-wrap no-img';wrap.onclick=i.url?()=>window.open(i.url,'_blank','noopener'):null;}
+    };
     wrap.appendChild(img);
     wrap.onclick=()=>openLightbox(i);
   } else if(i.url){
@@ -452,20 +441,15 @@ function makeItem(i,listMode){
   const st=getItemState(i.id);
   const secName=listMode?kitData.sections.find(s=>s.items.some(x=>x.id===i.id))?.name:null;
   const d=document.createElement('div');d.className='item';d.id='item-'+i.id;
-
-  // Thumbnail
   d.appendChild(makeThumb(i));
-
   const left=document.createElement('div');left.className='item-left';
   left.innerHTML=`<div class="item-name">${i.name}</div>${i.note?`<div class="item-note">${i.note}</div>`:''}<div class="item-tier">${i.tier||''}</div>`;
-
   const meta=document.createElement('div');meta.className='item-meta';
   if(st!=='unset')meta.innerHTML+=`<span class="badge b-${st}">${LB[st]}</span>`;
   if(listMode&&secName)meta.innerHTML+=`<span class="item-sec-tag">${secName.replace(/^\d+ · /,'')}</span>`;
   if(i.subsection)meta.innerHTML+=`<span class="item-sec-tag">${i.subsection}</span>`;
   if(i.url)meta.innerHTML+=`<a class="item-link" href="${i.url}" target="_blank" rel="noopener">↗ product</a>`;
   if(meta.innerHTML)left.appendChild(meta);
-
   if(comments[i.id]){const cd=document.createElement('div');cd.className='saved-comment';cd.textContent='💬 '+comments[i.id];left.appendChild(cd);}
   if(openComments[i.id]){
     const cb=document.createElement('div');cb.className='comment-box';
@@ -478,7 +462,6 @@ function makeItem(i,listMode){
     };
     cb.appendChild(ta);cb.appendChild(sb);left.appendChild(cb);
   }
-
   const right=document.createElement('div');right.className='item-right';
   const sel=document.createElement('select');sel.className='ss';
   SL.forEach(s=>{const o=document.createElement('option');o.value=s;o.textContent=LB[s];if(s===st)o.selected=true;sel.appendChild(o);});
