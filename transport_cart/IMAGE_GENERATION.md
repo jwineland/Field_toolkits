@@ -87,11 +87,13 @@ For accurate future visuals, create a simple exact-scale CAD/blockout first usin
 
 Then provide the blockout as the geometry reference to the generative renderer. Do not ask the image model to infer those proportions from prose alone.
 
-## Selected asset notes
+## Asset notes
 
-- `01_rollout_case_concept.svg` — early supported-rollout idea; useful history, now mostly superseded by low end docking.
-- `02_lwing_variant.svg` — illustrates experimental L-wing concept; superseded for v1.
-- `03_low_case_bracket_variant.svg` — closer to low NANUK support direction, but dimensions/orientation are not authoritative.
-- `04_rolling_toolbelt_direction.svg` — useful conceptual shift toward pouch rail / waste module; contains geometry errors.
-- `05_close_generated_concept.svg` — useful overall rolling-toolbelt composition; NANUK/tool-roll placement contains known errors.
-- `06_weight_infographic.svg` — rough weight-planning visualization; numbers are planning estimates, not measured BOM data.
+Canonical diagrams now committed under `assets/`:
+
+- `geometry_top_view.svg` — authoritative proportional footprint guide for the R6RT, Pelican Air 1595, and deployed NANUK 935.
+- `vertical_modes.svg` — seated/standing height modes, Pelican lid clearance, rear-roll stand-off, and upper reference plane.
+- `tool_docking_layout.svg` — authoritative zoning for upper Pelican roll, rear NANUK-derived heavy roll(s), operator pouch rail, waste/sorting side, and low NANUK dock.
+- `weight_architecture.svg` — package mass targets and 50 lb hard ceiling.
+
+Earlier photorealistic concept renders from the source conversation are useful only as ideation history and contain known geometry/location errors. Use the canonical SVGs as the visual source of truth.
