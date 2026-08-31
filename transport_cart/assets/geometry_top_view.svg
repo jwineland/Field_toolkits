@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760">
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill:#111; }
+    .title { font-size:30px; font-weight:700; }
+    .sub { font-size:18px; }
+    .label { font-size:20px; font-weight:700; }
+    .small { font-size:16px; }
+    .dim { font-size:17px; font-weight:700; }
+    .frame { fill:#e7e7e7; stroke:#111; stroke-width:4; }
+    .pelican { fill:#c6d7e8; stroke:#315b7d; stroke-width:4; }
+    .nanuk { fill:#e8d1a6; stroke:#8a5a12; stroke-width:4; }
+    .hinge { stroke:#b32020; stroke-width:7; }
+    .dash { stroke:#555; stroke-width:2; stroke-dasharray:8 8; fill:none; }
+    .arrow { stroke:#111; stroke-width:2.5; marker-start:url(#a); marker-end:url(#a); }
+  </style>
+  <defs>
+    <marker id="a" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M0,0 L8,4 L0,8 z" fill="#111"/></marker>
+  </defs>
+
+  <text x="50" y="52" class="title">Transport Cart — Canonical Top-View Geometry</text>
+  <text x="50" y="82" class="sub">Use these proportions for CAD/blockout and image generation. Dimensions are intentionally not visually normalized.</text>
+
+  <rect x="170" y="265" width="850" height="250" rx="8" class="frame"/>
+  <text x="595" y="535" text-anchor="middle" class="label">Rock-N-Roller R6RT deployed frame</text>
+  <text x="595" y="560" text-anchor="middle" class="small">42.5 in long × 12.5 in wide</text>
+
+  <rect x="310" y="211" width="570" height="358" rx="22" class="pelican"/>
+  <text x="595" y="372" text-anchor="middle" class="label">Pelican Air 1595</text>
+  <text x="595" y="399" text-anchor="middle" class="small">28.52 × 17.89 × 10.73 in</text>
+  <text x="595" y="426" text-anchor="middle" class="small">centered on the R6 lower deck</text>
+
+  <line x1="310" y1="189" x2="170" y2="189" class="arrow"/>
+  <text x="240" y="175" text-anchor="middle" class="dim">~2.7 in</text>
+  <line x1="1020" y1="189" x2="880" y2="189" class="arrow"/>
+  <text x="950" y="175" text-anchor="middle" class="dim">~2.7 in</text>
+  <text x="1085" y="226" class="small">Pelican is visibly</text>
+  <text x="1085" y="248" class="small">wider than frame</text>
+
+  <rect x="1020" y="170" width="280" height="440" rx="18" class="nanuk"/>
+  <line x1="1020" y1="170" x2="1020" y2="610" class="hinge"/>
+  <text x="1160" y="366" text-anchor="middle" class="label">NANUK 935</text>
+  <text x="1160" y="393" text-anchor="middle" class="small">14 in outward projection</text>
+  <text x="1160" y="418" text-anchor="middle" class="small">22 in hinge edge</text>
+  <text x="1036" y="646" class="small">red line = hinge nearest cart</text>
+
+  <line x1="1020" y1="145" x2="1300" y2="145" class="arrow"/>
+  <text x="1160" y="130" text-anchor="middle" class="dim">14 in</text>
+  <line x1="1328" y1="170" x2="1328" y2="610" class="arrow"/>
+  <text x="1346" y="393" class="dim" transform="rotate(90 1346 393)">22 in</text>
+
+  <line x1="145" y1="265" x2="145" y2="515" class="arrow"/>
+  <text x="126" y="395" class="dim" transform="rotate(-90 126 395)">12.5 in frame width</text>
+
+  <text x="50" y="690" class="label">Key geometry rules</text>
+  <text x="50" y="720" class="small">• Pelican overhang is intentional. • NANUK is horizontal/square, 22-in hinge edge lateral across the cart end, hinge nearest cart. • NANUK support adapters may be used at either end.</text>
+</svg>

@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="800" viewBox="0 0 1200 800">
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill:#111; }
+    .title { font-size:30px; font-weight:700; }
+    .label { font-size:20px; font-weight:700; }
+    .small { font-size:16px; }
+    .mode { font-size:22px; font-weight:700; }
+    .frame { stroke:#111; stroke-width:5; fill:none; }
+    .top { fill:#d8d8d8; stroke:#111; stroke-width:3; }
+    .case { fill:#c6d7e8; stroke:#315b7d; stroke-width:4; }
+    .lid { fill:#dce8f2; stroke:#315b7d; stroke-width:4; }
+    .roll { fill:#222; stroke:#111; stroke-width:3; }
+    .upper { stroke:#666; stroke-width:4; fill:none; }
+    .guide { stroke:#777; stroke-dasharray:7 7; stroke-width:2; }
+  </style>
+  <text x="50" y="48" class="title">Transport Cart — Vertical Operating Modes</text>
+
+  <text x="65" y="105" class="mode">A. Seated laptop / console mode</text>
+  <line x1="80" y1="690" x2="515" y2="690" class="frame"/>
+  <rect x="145" y="535" width="295" height="110" rx="16" class="case"/>
+  <text x="292" y="595" text-anchor="middle" class="label">Pelican 1595 CLOSED</text>
+  <line x1="120" y1="510" x2="120" y2="260" class="upper"/>
+  <line x1="465" y1="510" x2="465" y2="260" class="upper"/>
+  <rect x="105" y="255" width="375" height="35" class="top"/>
+  <text x="292" y="238" text-anchor="middle" class="label">Main top ~29–30 in AFF</text>
+  <rect x="170" y="166" width="245" height="55" rx="5" class="top"/>
+  <text x="292" y="148" text-anchor="middle" class="small">upper reference shelf optional</text>
+  <line x1="85" y1="255" x2="85" y2="690" class="guide"/>
+  <text x="64" y="487" class="small" transform="rotate(-90 64 487)">seated top index</text>
+  <text x="78" y="742" class="small">Pelican remains closed at the lowest index.</text>
+
+  <text x="610" y="105" class="mode">B. Standing service mode</text>
+  <line x1="620" y1="690" x2="1120" y2="690" class="frame"/>
+  <rect x="675" y="535" width="295" height="110" rx="16" class="case"/>
+  <text x="822" y="605" text-anchor="middle" class="small">Pelican base</text>
+  <rect x="675" y="295" width="32" height="240" class="lid"/>
+  <text x="660" y="430" class="small" transform="rotate(-90 660 430)">lid fixed ~90–95°</text>
+  <line x1="645" y1="500" x2="645" y2="185" class="upper"/>
+  <line x1="1020" y1="500" x2="1020" y2="185" class="upper"/>
+  <rect x="630" y="190" width="405" height="35" class="top"/>
+  <text x="832" y="170" text-anchor="middle" class="label">Main top ~39–41 in AFF</text>
+  <text x="832" y="250" text-anchor="middle" class="small">lowest standing index must clear open Pelican lid</text>
+
+  <rect x="1045" y="300" width="65" height="205" rx="5" class="roll"/>
+  <line x1="1020" y1="300" x2="1045" y2="300" class="guide"/>
+  <text x="1118" y="400" class="small" transform="rotate(90 1118 400)">rear heavy Site Ops roll</text>
+  <text x="1040" y="530" class="small">~1.5–3 in stand-off</text>
+
+  <line x1="645" y1="185" x2="645" y2="115" class="upper"/>
+  <line x1="1020" y1="185" x2="1020" y2="115" class="upper"/>
+  <line x1="645" y1="115" x2="1020" y2="115" class="upper"/>
+  <rect x="700" y="70" width="230" height="35" class="top"/>
+  <text x="815" y="62" text-anchor="middle" class="small">laptop/tablet/scanner/reference shelf</text>
+
+  <text x="610" y="742" class="small">Use positive lid retention (webbing/link stays) so the lid need not project into the rear tool-roll zone.</text>
+  <text x="50" y="785" class="small">Optional higher standing index (~42–44 in AFF) can be added after prototype ergonomics are measured.</text>
+</svg>

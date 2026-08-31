@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1250" height="780" viewBox="0 0 1250 780">
+  <style>
+    text { font-family: Arial, Helvetica, sans-serif; fill:#111; }
+    .title { font-size:30px; font-weight:700; }
+    .head { font-size:22px; font-weight:700; }
+    .label { font-size:18px; font-weight:700; }
+    .small { font-size:15px; }
+    .cart { fill:#eee; stroke:#111; stroke-width:4; }
+    .roll { fill:#222; stroke:#111; stroke-width:3; }
+    .rail { stroke:#315b7d; stroke-width:10; }
+    .waste { fill:#d9d9d9; stroke:#555; stroke-width:3; }
+    .pouch { fill:#a9b8c5; stroke:#315b7d; stroke-width:2; }
+    .case { fill:#c6d7e8; stroke:#315b7d; stroke-width:3; }
+    .nanuk { fill:#e8d1a6; stroke:#8a5a12; stroke-width:3; }
+    .mast { stroke:#333; stroke-width:8; }
+  </style>
+  <text x="50" y="50" class="title">Transport Cart — Tool Module Docking / “Rolling Toolbelt” Layout</text>
+
+  <text x="85" y="102" class="head">Operator / toolbelt side</text>
+  <rect x="90" y="265" width="470" height="280" rx="12" class="cart"/>
+  <rect x="135" y="395" width="350" height="110" rx="12" class="case"/>
+  <text x="310" y="455" text-anchor="middle" class="label">Pelican Air 1595</text>
+  <rect x="125" y="235" width="400" height="35" class="cart"/>
+  <text x="325" y="225" text-anchor="middle" class="small">adjustable main worktop</text>
+  <line x1="130" y1="300" x2="520" y2="300" class="rail"/>
+  <text x="325" y="327" text-anchor="middle" class="label">modular perimeter “belt” rail</text>
+  <rect x="150" y="315" width="70" height="70" rx="8" class="pouch"/><text x="185" y="355" text-anchor="middle" class="small">drill hook</text>
+  <rect x="240" y="315" width="85" height="70" rx="8" class="pouch"/><text x="282" y="350" text-anchor="middle" class="small">electrician</text><text x="282" y="368" text-anchor="middle" class="small">pouch</text>
+  <rect x="345" y="315" width="70" height="70" rx="8" class="pouch"/><text x="380" y="355" text-anchor="middle" class="small">meter</text>
+  <rect x="435" y="315" width="70" height="70" rx="8" class="pouch"/><text x="470" y="350" text-anchor="middle" class="small">parts</text><text x="470" y="368" text-anchor="middle" class="small">pouch</text>
+  <rect x="145" y="120" width="360" height="95" rx="8" class="roll"/>
+  <text x="325" y="158" text-anchor="middle" fill="#fff" class="label">Pelican small-tools roll</text>
+  <text x="325" y="185" text-anchor="middle" fill="#fff" class="small">existing 28.7 × 14 in roll; lightweight upper dock</text>
+  <line x1="535" y1="235" x2="535" y2="105" class="mast"/><line x1="535" y1="105" x2="585" y2="105" class="mast"/>
+  <text x="570" y="90" class="small">light / balancer mast</text>
+  <rect x="95" y="560" width="130" height="145" class="waste"/>
+  <line x1="138" y1="560" x2="138" y2="705" stroke="#777"/><line x1="182" y1="560" x2="182" y2="705" stroke="#777"/>
+  <text x="160" y="735" text-anchor="middle" class="label">one side: divided waste / sorting bags</text>
+
+  <text x="700" y="102" class="head">Rear / opposite side</text>
+  <rect x="710" y="265" width="430" height="280" rx="12" class="cart"/>
+  <rect x="750" y="395" width="350" height="110" rx="12" class="case"/>
+  <text x="925" y="455" text-anchor="middle" class="label">Pelican Air 1595</text>
+  <rect x="745" y="235" width="360" height="35" class="cart"/>
+  <rect x="770" y="285" width="310" height="95" rx="8" class="roll"/>
+  <text x="925" y="325" text-anchor="middle" fill="#fff" class="label">NANUK-derived heavy Site Ops roll(s)</text>
+  <text x="925" y="350" text-anchor="middle" fill="#fff" class="small">hang from rear rail, upper suspension + lower restraint</text>
+  <text x="925" y="375" text-anchor="middle" fill="#fff" class="small">accessible only from this opposite side; ~1.5–3 in stand-off</text>
+  <rect x="1115" y="365" width="105" height="165" rx="10" class="nanuk"/>
+  <text x="1168" y="420" text-anchor="middle" class="small">NANUK</text><text x="1168" y="440" text-anchor="middle" class="small">935 low</text><text x="1168" y="460" text-anchor="middle" class="small">end dock</text>
+  <line x1="1115" y1="365" x2="1115" y2="530" stroke="#b32020" stroke-width="6"/>
+  <text x="1140" y="558" class="small">hinge nearest cart; support adapters movable to either end</text>
+
+  <text x="65" y="765" class="small">Deployment philosophy: tool rolls travel inside their cases, then dock to the cart. The cart carries lightweight interfaces, not duplicate storage cabinetry.</text>
+</svg>
