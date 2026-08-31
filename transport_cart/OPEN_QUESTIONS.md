@@ -2,126 +2,135 @@
 
 This file separates unresolved engineering questions from decisions already made in `README.md`.
 
-## P0 — resolve before detailed CAD
+## P0 — resolve before buying clamps or cutting wood
+
+### R6G physical geometry
+
+Measure a real R6G (not spec sheet):
+- upright/handle tube outer diameter at candidate clamp points (determines all clamp sourcing)
+- deck-surface AFF at each extension notch (determines riser heights and seated index)
+- cross-member positions and tube diameter
+- rear axle-carrier construction and feasible QR modification approach
+- folded naked-frame thickness after wheels and casters removed (confirms MIER 90L packing)
 
 ### Actual packed case weights
 
-The new human-factors requirement is MAX 50 lb, target 45–48 lb per handled case. We need real measurements, not estimates.
+New hard requirement: MAX 50 lb, target 45–48 lb per handled package.
 
 Actions:
-- weigh empty Pelican 1595 in its actual configured state;
-- weigh the 28.7 x 14 small-tool roll empty and loaded;
-- weigh each Pelican inventory group;
-- weigh empty/configured NANUK 935;
-- weigh each heavier Site Ops roll and its contents;
-- identify dense/low-utility items for relocation, duplication reduction, or selective-site loading.
+- weigh empty Pelican 1595 in actual configured state
+- weigh 28.7×14 small-tool roll empty and loaded
+- weigh each Pelican inventory group individually
+- weigh empty NANUK 935 / unbranded black case
+- weigh site ops rolls and contents
+- identify dense/low-utility items for relocation or selective-site loading
 
-### R6 physical geometry
-
-Measure a real R6RT:
-- deck height AFF in relevant configurations;
-- exact deployed frame width/length;
-- tube sizes and wall sections at candidate accessory attachment points;
-- handle/upright hole spacing;
-- folded naked-frame thickness after wheels/casters are removed;
-- rear axle-carrier construction and feasible QR modifications.
-
-### Pelican lid envelope
+### Pelican lid sweep
 
 Prototype with actual 1595:
-- minimum underside-of-top clearance for 90 degree lid position;
-- useful retention angle (90–95 degrees likely);
-- interference with rear heavy-roll stand-off;
-- seated index with lid closed;
-- standing index clearing lid.
+- minimum underside-of-top clearance for 90° lid position at each riser height
+- useful retention angle (90–95° likely)
+- interference with rear tool-roll stand-off at that angle
+- confirm seated index (first notch, no riser) with lid closed
 
-## P1 — modular interface prototypes
+### RSA-WAG6 stock
 
-### NANUK end supports
+Confirm availability at B&H or RocknRoller before ordering R6G and MIER bag.
 
-Build two simple triangular adapters that can move between ends.
+## P1 — prototype fabrication questions
 
-Validate:
-- case remains level;
-- 22 in case width / ~4.75 in per-side overhang is acceptable;
-- 14 in outward projection is manageable;
-- no unacceptable chassis twist or tipping;
-- whether a rolling anti-tip support is required;
-- operator can still reposition cart while NANUK is deployed.
+### Deck thickness validation
 
-### Perimeter pouch rail
+Prototype in 1/2" Baltic birch. Under working load (laptop + tools + downward service pressure):
+- does 1/2" at 30"×12" span flex acceptably with 4-point clamp support?
+- if flex is marginal, does adding a center cross-support clamp resolve it without adding weight?
+- record result to inform ACP thickness selection (10mm vs 16mm core)
 
-Compare:
-1. rigid 1.5–2 in belt-like flat bar;
-2. thin-wall square tube plus clip adapters;
-3. short localized 10-series/T-slot sections;
-4. hybrid.
+### ACP thickness selection
 
-Use actual drill hook, electrician pouch, meter pouch, divided pouches, and fastener pouch. Optimize for one-handed park/remove action and low rattle.
+After prototype flex testing:
+- if 1/2" birch is adequately stiff: 10mm ACP core is likely sufficient (~1.1 lb at 30"×12")
+- if 1/2" birch shows noticeable flex under load: specify 16mm ACP core (~1.5 lb at 30"×12")
+- bring confirmed dimensions to sign shop; specify structural/thick ACP, not standard 3mm signage Dibond
+- expected cost $20–50 as offcut; get quote before committing
 
-### Upper small-tools roll dock
+### Tube clamp sizing
 
-Use the actual 28.7 x 14 Pelican roll.
+All clamps depend on measured R6G tube outer diameter. Common sizes are 1" and 1.25" OD — verify before ordering:
+- 4× deck attachment clamps
+- 2× end shelf U-bolt saddle clamps (×2 per adapter = 4 total)
+- pouch clip hangers for front rail
 
-Test:
-- vertical vs 15–30 degree working tilt;
-- four-point tensioning;
-- whether opposite support upright is necessary;
-- interference with laptop/tablet/reference shelf;
-- rapid removal/roll-up for travel.
+### Riser validation
 
-### Rear heavy-roll dock
+After deck height at full extension is measured:
+- confirm 3" riser reaches comfortable standing height for primary user
+- confirm 6" riser is useful or redundant
+- confirm riser tube section (1"×1" or 1.5"×1.5" square aluminum) fits between clamp and deck cleanly
+- validate that riser + clamp assembly is stable under lateral service load
 
-Use actual NANUK-derived roll(s).
+### End shelf adapter validation
 
-Test:
-- one large roll vs two narrower rolls;
-- 1.5–3 in stand-off from frame;
-- upper suspension plus lower restraint;
-- Pelican lid clearance;
-- balance and cart steering with loaded rear rolls.
+Fabricate two triangular adapters (aluminum flat bar + U-bolt saddle clamps):
+- case remains level
+- ~4.75 in per-side overhang is acceptable in practice
+- 14 in outward projection is manageable in DC and office environments
+- no unacceptable chassis twist or tipping under case weight
+- retention strap (1" nylon webbing + side-release buckle) is sufficient
+- operator can reposition cart while case is deployed on shelf
 
-## P2 — work-surface decisions
+### Tool roll hang system
 
-### Main top material
+Use actual rolls and pouches:
+- S-hook sizing to match upper upright tube and roll grommet/loop diameter
+- shock cord gauge and hook type for lower tensioning
+- whether 1.5–3 in stand-off from frame is needed for rear roll (Pelican lid sweep clearance)
+- front pouch clip hanger compatibility with measured tube diameter
+- whether DC roll hangs best on front, rear, or end for typical site layouts — test all three
 
-Compare:
-- thin aluminum honeycomb/composite bi-fold;
-- aluminum slat/roll-top;
-- rigid narrow core plus deployable extension.
+## P2 — work surface decisions
 
-Requirements:
-- lightweight;
-- cleanable;
-- seated and standing use;
-- enough rigidity for laptop/service work;
-- optional wider crash-cart/server-service mode;
-- packs within airline cart package.
+### Deck width
 
-### Upper laptop/reference shelf
+Current target 12 in matches R6G frame width. Questions:
+- is 12 in adequate for laptop + tester side by side?
+- would a 14–16 in deck (overhanging frame ~1–2 in per side) be useful and stable?
+- does overhang create tipping risk at standing height with off-center load?
 
-Determine whether the upper frame should support:
-- tablet only;
-- laptop/reference shelf;
-- scanner dock;
-- removable VESA/monitor mount.
+### Upper reference shelf
 
-Primary uses are standing inventory/shipping scans, manuals, diagrams, and reference while hands-on work occurs on the main top.
+Determine whether upper uprights should support:
+- tablet / reference only
+- laptop at standing height
+- scanner dock
+- or nothing in v1 (hang roll from upper uprights instead)
 
-## P3 — accessory placement after main geometry is frozen
+Primary uses: standing inventory/shipping scans, manuals, diagrams, reference during hands-on work on main deck.
 
-Potential modules:
-- cordless battery charger mounts;
-- small fan;
-- paper towel roll;
-- clip-on/magnetic/ESD parts trays;
-- task light(s);
-- cord hooks;
-- waste/sorting bags;
-- small consumable bins.
+### Pelican lid retention
 
-These should not drive the main frame dimensions.
+Test retention options:
+- webbing stays (simplest)
+- short link/chain stays
+- clips/straps
+- target ~90–95° fixed position
+- rear-roll stand-off can provide secondary anchor/clearance structure
 
-## Deferred product concept
+## P3 — accessory placement after main geometry frozen
 
-A personnel-rated reach/scaffold mode was discussed and intentionally deferred. A future product could incorporate structural hard stops, personnel-rated platform, stabilizers, and proof testing, but v1 should use a separate lightweight folding step.
+Potential modules (do not drive main frame dimensions):
+- cordless battery charger mounts
+- small portable fan
+- paper towel roll holder
+- clip-on / magnetic / ESD parts trays
+- additional task lighting
+- cord hooks and management
+- waste / sorting bag divisions
+- small consumable bins
+
+## Deferred concepts
+
+- **Torque driver balancer / boom mast:** interesting but non-critical. Add only if weight budget allows after all primary geometry validated. Not designed into v1 frame.
+- **Piano hinge folding deck:** deferred to v2 after prototype geometry validated.
+- **Personnel scaffold / step mode:** v2 only with proper structural engineering, proof testing, and hard stops. Use separate lightweight folding step for v1.
+- **Removable drawer:** rejected for v1 on weight and complexity grounds. May revisit in v2 if prototype reveals strong need.
