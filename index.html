@@ -6,26 +6,13 @@
 <title>DC Field Toolkit Checklist</title>
 <style>
   :root {
-    --bg: #0f1117;
-    --surface: #1a1d27;
-    --surface2: #22263a;
-    --border: #2e3250;
-    --border2: #3d4270;
-    --text: #e8eaf6;
-    --text2: #9096b8;
-    --text3: #5a6080;
-    --accent: #5c7cfa;
-    --accent-bg: #1a2060;
-    --green: #40c057;
-    --green-bg: #0d2b14;
-    --yellow: #fab005;
-    --yellow-bg: #2b2000;
-    --red: #f03e3e;
-    --red-bg: #2b0a0a;
-    --purple: #ae3ec9;
-    --purple-bg: #250d2b;
-    --radius: 8px;
-    --radius-sm: 5px;
+    --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a;
+    --border: #2e3250; --border2: #3d4270; --text: #e8eaf6;
+    --text2: #9096b8; --text3: #5a6080; --accent: #5c7cfa;
+    --accent-bg: #1a2060; --green: #40c057; --green-bg: #0d2b14;
+    --yellow: #fab005; --yellow-bg: #2b2000; --red: #f03e3e;
+    --red-bg: #2b0a0a; --purple: #ae3ec9; --purple-bg: #250d2b;
+    --radius: 8px; --radius-sm: 5px;
   }
   *{box-sizing:border-box;margin:0;padding:0}
   body{background:var(--bg);color:var(--text);font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;font-size:14px;min-height:100vh}
@@ -33,24 +20,20 @@
   header{padding:20px 0 16px;border-bottom:1px solid var(--border);margin-bottom:16px}
   h1{font-size:20px;font-weight:600}
   .subtitle{font-size:12px;color:var(--text3);margin-top:4px}
-  .mode-bar{display:flex;gap:0;margin-bottom:16px;border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;width:fit-content}
+  .mode-bar{display:flex;margin-bottom:16px;border:1px solid var(--border2);border-radius:var(--radius);overflow:hidden;width:fit-content}
   .mode-btn{font-size:13px;padding:7px 18px;background:transparent;border:none;color:var(--text2);cursor:pointer;transition:all .15s}
   .mode-btn.active{background:var(--accent);color:#fff}
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:16px}
   .stat{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 12px;cursor:pointer;transition:border-color .15s}
-  .stat:hover{border-color:var(--border2)}
-  .stat.active-stat{border-color:var(--accent)}
+  .stat:hover{border-color:var(--border2)} .stat.active-stat{border-color:var(--accent)}
   .stat-label{font-size:11px;color:var(--text3);margin-bottom:4px}
   .stat-value{font-size:22px;font-weight:600}
-  .stat-value.green{color:var(--green)}
-  .stat-value.blue{color:var(--accent)}
-  .stat-value.yellow{color:var(--yellow)}
-  .stat-value.purple{color:var(--purple)}
+  .stat-value.green{color:var(--green)} .stat-value.blue{color:var(--accent)}
+  .stat-value.yellow{color:var(--yellow)} .stat-value.purple{color:var(--purple)}
   .stat-value.muted{color:var(--text2)}
   .controls{display:flex;flex-direction:column;gap:10px;margin-bottom:16px}
   .search input{width:100%;background:var(--surface);border:1px solid var(--border2);border-radius:var(--radius);padding:9px 12px;color:var(--text);font-size:14px;outline:none}
-  .search input:focus{border-color:var(--accent)}
-  .search input::placeholder{color:var(--text3)}
+  .search input:focus{border-color:var(--accent)} .search input::placeholder{color:var(--text3)}
   .filters{display:flex;flex-wrap:wrap;gap:6px}
   .fb{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid var(--border2);background:transparent;color:var(--text2);cursor:pointer;transition:all .15s}
   .fb:hover{border-color:var(--accent);color:var(--text)}
@@ -71,7 +54,7 @@
   .subsec-head:first-of-type{border-top:none;margin-top:0}
   .item{display:flex;align-items:flex-start;gap:10px;padding:10px 0;border-bottom:1px solid var(--border)}
   .item:last-child{border-bottom:none}
-  .item-thumb-wrap{flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .item-thumb-wrap{flex-shrink:0;width:56px;height:56px;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;cursor:pointer;text-decoration:none}
   .item-thumb-wrap img{width:100%;height:100%;object-fit:contain;display:block}
   .item-thumb-wrap.no-img{color:var(--text3);font-size:18px}
   .item-thumb-wrap.no-img:hover{border-color:var(--border2)}
@@ -82,10 +65,8 @@
   .item-meta{display:flex;gap:6px;flex-wrap:wrap;margin-top:4px;align-items:center}
   .item-sec-tag{font-size:10px;color:var(--text3);background:var(--surface2);border:1px solid var(--border);border-radius:4px;padding:1px 6px}
   .badge{font-size:10px;padding:2px 7px;border-radius:10px;font-weight:500}
-  .b-owned{background:var(--green-bg);color:var(--green)}
-  .b-buy{background:var(--accent-bg);color:var(--accent)}
-  .b-deferred{background:var(--yellow-bg);color:var(--yellow)}
-  .b-rejected{background:var(--red-bg);color:var(--red)}
+  .b-owned{background:var(--green-bg);color:var(--green)} .b-buy{background:var(--accent-bg);color:var(--accent)}
+  .b-deferred{background:var(--yellow-bg);color:var(--yellow)} .b-rejected{background:var(--red-bg);color:var(--red)}
   .b-reviewing{background:var(--purple-bg);color:var(--purple)}
   .item-link{font-size:10px;color:var(--accent);text-decoration:none;opacity:.8}
   .item-link:hover{opacity:1}
@@ -122,10 +103,8 @@
     body{background:#fff;color:#000}
     .list-sec-head{background:#eee;border:1px solid #ccc;color:#000;break-inside:avoid}
     .item{break-inside:avoid;border-bottom:1px solid #ddd}
-    .item-name{color:#000;font-size:12px}
-    .item-note{color:#444;font-size:11px}
-    .item-tier{color:#888;font-size:10px}
-    .item-sec-tag{background:#f0f0f0;border:1px solid #ccc;color:#444}
+    .item-name{color:#000;font-size:12px} .item-note{color:#444;font-size:11px}
+    .item-tier{color:#888;font-size:10px} .item-sec-tag{background:#f0f0f0;border:1px solid #ccc;color:#444}
     .saved-comment{background:#f5f5f5;border-left:2px solid #999;color:#444}
     .sec-header{color:#000;font-size:16px}
     .content-header{border-bottom:2px solid #000;margin-bottom:12px;padding-bottom:8px}
@@ -137,14 +116,11 @@
   .actions button.primary:hover{background:#4a6af0}
   .auth-bar{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 14px;margin-bottom:16px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
   .auth-bar input{flex:1;min-width:180px;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:6px 10px;color:var(--text);font-size:12px}
-  .auth-bar input:focus{outline:none;border-color:var(--accent)}
-  .auth-bar input::placeholder{color:var(--text3)}
+  .auth-bar input:focus{outline:none;border-color:var(--accent)} .auth-bar input::placeholder{color:var(--text3)}
   .auth-bar button{font-size:12px;padding:6px 14px;border-radius:var(--radius-sm);background:var(--accent);border:none;color:#fff;cursor:pointer}
-  .auth-status{font-size:11px;color:var(--text3)}
-  .auth-status.ok{color:var(--green)}
+  .auth-status{font-size:11px;color:var(--text3)} .auth-status.ok{color:var(--green)}
   .sync-status{font-size:11px;color:var(--text3);text-align:right;margin-bottom:8px;min-height:16px}
-  .sync-status.err{color:var(--red)}
-  .sync-status.ok{color:var(--green)}
+  .sync-status.err{color:var(--red)} .sync-status.ok{color:var(--green)}
   @media(max-width:500px){
     .stats{grid-template-columns:repeat(2,1fr)}
     .item-right{flex-direction:row;align-items:center}
@@ -219,13 +195,16 @@
 
 <script>
 const OWNER='jwineland',REPO='Field_toolkits',STATE_PATH='state.json',BRANCH='main';
-const PROXY='https://images.weserv.nl/?w=120&h=120&fit=contain&bg=1a1d27&url=';
 let kitData=null,state={},comments={},curSec=null,curListStatus='buy',appMode='checklist',filt='all',q='',pat='',openComments={};
 const SL=['unset','owned','buy','deferred','reviewing','rejected'];
 const LB={unset:'—',owned:'Owned',buy:'Buy',deferred:'Deferred',reviewing:'Reviewing',rejected:'Rejected'};
 const LIST_LABELS={owned:'Owned',buy:'Buy List',reviewing:'Reviewing',deferred:'Deferred',rejected:'Rejected',unset:'Unreviewed'};
 
-function proxyImg(url){return PROXY+encodeURIComponent(url);}
+// Route all images through wsrv.nl proxy — handles CORS for Amazon and other CDNs
+// Double-encode the URL so + signs and special chars survive the proxy query string
+function proxyImg(url){
+  return 'https://wsrv.nl/?w=120&h=120&fit=contain&output=jpg&url='+encodeURIComponent(url);
+}
 
 async function init(){
   const r=await fetch('data.json?_='+Date.now());
@@ -395,7 +374,7 @@ function openLightbox(i){
   document.getElementById('lb-name').textContent=i.name;
   const lnk=document.getElementById('lb-link');
   if(i.url){lnk.href=i.url;lnk.textContent='View product page ↗';lnk.style.display='';}
-  else{lnk.style.display='none';}
+  else lnk.style.display='none';
   document.getElementById('lightbox').classList.add('open');
 }
 
@@ -405,7 +384,6 @@ function closeLightbox(e){
     document.getElementById('lb-img').src='';
   }
 }
-
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
 
 function makeThumb(i){
@@ -417,10 +395,12 @@ function makeThumb(i){
     img.loading='lazy';
     img.src=proxyImg(i.image);
     img.alt=i.name;
+    // On error: show link icon if URL exists, else box
     img.onerror=()=>{
-      // fallback: try original URL directly
-      if(!img.dataset.fallback){img.dataset.fallback='1';img.src=i.image;}
-      else{wrap.innerHTML='📦';wrap.className='item-thumb-wrap no-img';wrap.onclick=i.url?()=>window.open(i.url,'_blank','noopener'):null;}
+      wrap.className='item-thumb-wrap no-img';
+      wrap.innerHTML=i.url?'🔗':'📦';
+      if(i.url)wrap.onclick=()=>window.open(i.url,'_blank','noopener');
+      else wrap.style.cursor='default';
     };
     wrap.appendChild(img);
     wrap.onclick=()=>openLightbox(i);
@@ -495,7 +475,7 @@ document.getElementById('srch').addEventListener('input',e=>{
       sh.textContent=sec.name;el.appendChild(sh);
       items.forEach(i=>el.appendChild(makeItem(i,false)));
     });
-  }else{render();}
+  }else render();
 });
 
 document.querySelectorAll('.fb').forEach(b=>b.addEventListener('click',()=>{
