@@ -99,7 +99,7 @@
   .lpick.lp-rejected.active{border-color:var(--red);background:var(--red-bg);color:var(--red)}
   .lpick.lp-unset.active{border-color:var(--border2);background:var(--surface2);color:var(--text)}
   @media print{
-    .auth-bar,.mode-bar,.controls,.sec-tabs,.list-picker,.item-right,.actions,.sync-status,.stats,.header-actions,.item-thumb-wrap,.lightbox{display:none!important}
+    .auth-bar,.profile-bar,.mode-bar,.controls,.sec-tabs,.list-picker,.item-right,.actions,.sync-status,.stats,.header-actions,.item-thumb-wrap,.lightbox{display:none!important}
     body{background:#fff;color:#000}
     .list-sec-head{background:#eee;border:1px solid #ccc;color:#000;break-inside:avoid}
     .item{break-inside:avoid;border-bottom:1px solid #ddd}
@@ -119,6 +119,12 @@
   .auth-bar input:focus{outline:none;border-color:var(--accent)} .auth-bar input::placeholder{color:var(--text3)}
   .auth-bar button{font-size:12px;padding:6px 14px;border-radius:var(--radius-sm);background:var(--accent);border:none;color:#fff;cursor:pointer}
   .auth-status{font-size:11px;color:var(--text3)} .auth-status.ok{color:var(--green)}
+  .profile-bar{display:flex;align-items:center;gap:8px;padding:10px 0;flex-wrap:wrap}
+  .profile-bar label{font-size:12px;color:var(--text2);font-weight:600}
+  .profile-bar select{background:var(--surface);color:var(--text);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:7px 10px;font-size:12px}
+  .profile-bar button{background:var(--surface2);color:var(--text2);border:1px solid var(--border2);border-radius:var(--radius-sm);padding:7px 10px;font-size:12px;cursor:pointer}
+  .profile-bar button:hover{border-color:var(--accent);color:var(--text)}
+  .profile-note{font-size:11px;color:var(--text3)}
   .sync-status{font-size:11px;color:var(--text3);text-align:right;margin-bottom:8px;min-height:16px}
   .sync-status.err{color:var(--red)} .sync-status.ok{color:var(--green)}
   @media(max-width:500px){
@@ -139,6 +145,12 @@
     <input type="password" id="pat-input" placeholder="GitHub Personal Access Token (repo scope) — for saving changes">
     <button onclick="saveAuth()">Connect</button>
     <span class="auth-status" id="auth-status">Not connected — changes saved locally only</span>
+  </div>
+  <div class="profile-bar">
+    <label for="profile-select">Toolkit owner</label>
+    <select id="profile-select" onchange="switchProfile(this.value)"></select>
+    <button id="copy-joel-btn" onclick="copyJoelToolkit()">Copy Joel's toolkit</button>
+    <span class="profile-note" id="profile-note">Each owner has independent statuses and notes.</span>
   </div>
   <div class="mode-bar">
     <button class="mode-btn active" onclick="setMode('checklist')">✓ Checklist</button>
@@ -195,7 +207,7 @@
 
 <script>
 const OWNER='jwineland',REPO='Field_toolkits',STATE_PATH='state.json',BRANCH='main';
-let kitData=null,state={},comments={},curSec=null,curListStatus='buy',appMode='checklist',filt='all',q='',pat='',openComments={};
+let kitData=null,stateDoc={version:2,profiles:{}},state={},comments={},currentProfile='joel',curSec=null,curListStatus='buy',appMode='checklist',filt='all',q='',pat='',openComments={};
 const SL=['unset','owned','buy','deferred','reviewing','rejected'];
 const LB={unset:'—',owned:'Owned',buy:'Buy',deferred:'Deferred',reviewing:'Reviewing',rejected:'Rejected'};
 const LIST_LABELS={owned:'Owned',buy:'Buy List',reviewing:'Reviewing',deferred:'Deferred',rejected:'Rejected',unset:'Unreviewed'};
@@ -210,35 +222,106 @@ async function init(){
   const r=await fetch('data.json?_='+Date.now());
   kitData=await r.json();
   await loadState();
+  buildProfilePicker();
   curSec=kitData.sections[0].id;
   buildTabs();updateStats();render();buildListPicker();
 }
 
+function normalizeStateDoc(raw){
+  if(raw&&raw.profiles){
+    raw.version=2;
+    raw.profiles.joel=raw.profiles.joel||{name:'Joel',status:{},comments:{}};
+    raw.profiles['chris-b']=raw.profiles['chris-b']||{name:'Chris B.',status:{},comments:{}};
+    return raw;
+  }
+  return {version:2,profiles:{
+    joel:{name:'Joel',status:(raw&&raw.status)||{},comments:(raw&&raw.comments)||{}},
+    'chris-b':{name:'Chris B.',status:{},comments:{}}
+  },updated:(raw&&raw.updated)||new Date().toISOString()};
+}
+
+function bindProfile(){
+  const p=stateDoc.profiles[currentProfile]||stateDoc.profiles.joel;
+  state=p.status||(p.status={});
+  comments=p.comments||(p.comments={});
+  openComments={};
+  localStorage.setItem('fk_current_profile',currentProfile);
+  buildProfilePicker();
+}
+
+function buildProfilePicker(){
+  const sel=document.getElementById('profile-select');
+  if(!sel)return;
+  sel.innerHTML='';
+  Object.entries(stateDoc.profiles).forEach(([id,p])=>{
+    const o=document.createElement('option');o.value=id;o.textContent=p.name||id;o.selected=id===currentProfile;sel.appendChild(o);
+  });
+  document.getElementById('copy-joel-btn').style.display=currentProfile==='joel'?'none':'';
+}
+
+function switchProfile(id){
+  if(!stateDoc.profiles[id])return;
+  currentProfile=id;bindProfile();saveLocal();
+  buildTabs();updateStats();buildListPicker();
+  if(appMode==='lists')renderStatusList();else render();
+  setSyncStatus('Viewing '+stateDoc.profiles[id].name+' toolkit','ok');
+}
+
+function copyJoelToolkit(){
+  if(currentProfile==='joel')return;
+  const target=stateDoc.profiles[currentProfile],source=stateDoc.profiles.joel;
+  if((Object.keys(target.status||{}).length||Object.keys(target.comments||{}).length)&&
+     !confirm('Replace '+target.name+'\'s current statuses and notes with Joel\'s toolkit?'))return;
+  target.status=JSON.parse(JSON.stringify(source.status||{}));
+  target.comments=JSON.parse(JSON.stringify(source.comments||{}));
+  bindProfile();saveLocal();buildTabs();updateStats();buildListPicker();
+  if(appMode==='lists')renderStatusList();else render();
+  setSyncStatus('Copied Joel\'s toolkit into '+target.name+' — customize and save when ready','ok');
+}
+
 async function loadState(){
+  let loaded=null;
   try{
     const r=await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/${STATE_PATH}?_=${Date.now()}`);
-    if(r.ok){const s=await r.json();state=s.status||{};comments=s.comments||{};setSyncStatus('Loaded from GitHub','ok');return;}
+    if(r.ok)loaded=await r.json();
   }catch(e){}
-  const ls=localStorage.getItem('fk_state');
-  if(ls){const p=JSON.parse(ls);state=p.status||{};comments=p.comments||{};}
-  setSyncStatus('Using local storage — connect GitHub to share','');
+  if(!loaded){
+    const ls=localStorage.getItem('fk_state_v2')||localStorage.getItem('fk_state');
+    if(ls)try{loaded=JSON.parse(ls);}catch(e){}
+  }
+  stateDoc=normalizeStateDoc(loaded||{});
+  const preferred=localStorage.getItem('fk_current_profile')||'joel';
+  currentProfile=stateDoc.profiles[preferred]?preferred:'joel';
+  bindProfile();
+  setSyncStatus(loaded?'Loaded toolkit profiles':'Using local storage — connect GitHub to share',loaded?'ok':'');
 }
 
 function getItemState(id){return state[id]||'unset';}
-function saveLocal(){localStorage.setItem('fk_state',JSON.stringify({status:state,comments:comments}));}
+function saveLocal(){localStorage.setItem('fk_state_v2',JSON.stringify(stateDoc));}
+
+function decodeGitHubContent(content){
+  return decodeURIComponent(escape(atob(content.replace(/\n/g,''))));
+}
 
 async function syncToGitHub(){
   if(!pat){alert('Enter a GitHub PAT first.');return;}
-  setSyncStatus('Saving...','');
+  setSyncStatus('Saving '+stateDoc.profiles[currentProfile].name+'...','');
   try{
-    let sha=null;
-    try{const r=await ghApi('GET',`contents/${STATE_PATH}`);if(r.sha)sha=r.sha;}catch(e){}
-    const content=JSON.stringify({status:state,comments:comments,updated:new Date().toISOString()},null,2);
-    const body={message:'Update kit state — '+new Date().toISOString(),content:btoa(unescape(encodeURIComponent(content))),branch:BRANCH};
+    let sha=null,remote=normalizeStateDoc({});
+    try{
+      const r=await ghApi('GET',`contents/${STATE_PATH}`);
+      if(r.sha)sha=r.sha;
+      if(r.content)remote=normalizeStateDoc(JSON.parse(decodeGitHubContent(r.content)));
+    }catch(e){}
+    remote.profiles[currentProfile]=JSON.parse(JSON.stringify(stateDoc.profiles[currentProfile]));
+    remote.updated=new Date().toISOString();
+    const content=JSON.stringify(remote,null,2);
+    const body={message:'Update '+remote.profiles[currentProfile].name+' toolkit — '+remote.updated,content:btoa(unescape(encodeURIComponent(content))),branch:BRANCH};
     if(sha)body.sha=sha;
     await ghApi('PUT',`contents/${STATE_PATH}`,body);
-    setSyncStatus('Saved to GitHub ✓','ok');saveLocal();
-  }catch(e){setSyncStatus('Save failed: '+e.message,'err');}
+    stateDoc=remote;bindProfile();saveLocal();
+    setSyncStatus('Saved '+stateDoc.profiles[currentProfile].name+' to GitHub ✓','ok');
+  }catch(e){setSyncStatus('Save failed: '+e.message+' — reload and retry if another user saved first','err');}
 }
 
 async function ghApi(method,path,body){
